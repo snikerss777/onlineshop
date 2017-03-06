@@ -1,0 +1,10 @@
+.divider-vertical {
+	height: 50px;
+	margin: 0 9px;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+}
+
+#centerd-navbar{
+	padding-left: 10%;
+}
