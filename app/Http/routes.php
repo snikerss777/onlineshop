@@ -30,3 +30,5 @@ Route::get('/getAdvertisements/{id}', 'AdvertisementController@index');
 Route::get('/my_account/{id}', 'UserController@show');
 Route::get('/edit_account/{id}', 'UserController@edit');
 Route::get('/update_account/{id}', 'UserController@update');
+
+
