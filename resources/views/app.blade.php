@@ -42,7 +42,7 @@
 					<li><a href="{{ url('/') }}">O nas</a></li>
 					<li><a href="{{ url('/') }}">Kontakt</a></li>
 					@else
-						<li><a href="{{ url('/') }}">Dodaj ogłoszenie</a></li>
+						<li><a href="{{ url('/advertisement/create') }}">Dodaj ogłoszenie</a></li>
 						<li><a href="{{ url('/') }}">Obserwowane</a></li>
 					@endif
 				</ul>
@@ -85,6 +85,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
 	<script src="/Angular/Controllers/MainController.js"></script>
 	<script src="/Angular/Controllers/CategoryController.js"></script>
-
+    <script src="https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js"></script> 
+    
 </body>
 </html>

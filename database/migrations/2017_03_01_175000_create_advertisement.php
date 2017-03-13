@@ -20,7 +20,7 @@ class CreateAdvertisement extends Migration {
 			$table->integer('price')->unsigned();
 			$table->integer('number_of_copies');
 			$table->date('end_date');
-			$table->bigInteger('account_number');
+			$table->string('account_number');
 			$table->string('place');
 			$table->integer('create_year');
 			$table->boolean('used');

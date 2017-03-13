@@ -17,8 +17,15 @@ class AdvertisementStatusesTableSeeder extends Seeder
         DB::table('advertisement_statuses')->delete();
 
         DB::table('advertisement_statuses')->insert([
-            'name' => "Aktywne"
-            
+            'name' => "Do akceptacji"
+        ]);
+
+        DB::table('advertisement_statuses')->insert([
+            'name' => "Aktywne" 
+        ]);
+
+        DB::table('advertisement_statuses')->insert([
+            'name' => "Odrzucone" 
         ]);
 
         DB::table('advertisement_statuses')->insert([

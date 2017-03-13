@@ -8,6 +8,13 @@ use App\User;
 
 class UserController extends Controller {
 
+
+
+	public function __construct(Request $request, User $user)
+   	{
+       $this->request = $request;
+       $this->user = $user;
+  	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -17,7 +24,7 @@ class UserController extends Controller {
 	{
 		$users = User::all();
 
-		return vierw $users;
+		return $users;
 	}
 
 
@@ -44,7 +51,7 @@ class UserController extends Controller {
 	{
 		$user = User::findOrFail($id);
 
-		return view('user.edit');
+		return view('user.edit', compact('user'));
 	}
 
 	/**
@@ -53,9 +60,38 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
-		
+	public function update($id, Request $request)
+	{					
+		$rules = $this->user->edit_rules;
+		$user = User::findOrFail($id);
+
+		$password = $request->input( 'password' );
+		if (empty( $password)) {
+			$request->merge( array( 'password' => $user->password ) );
+			$request->merge( array( 'password_confirmation' => $user->password ) );
+
+			$this->validate($request, $rules);
+		}
+		else{
+			$this->validate($request, $rules);
+			$request->merge( array( 'password' => bcrypt($password) ) );
+		}
+
+		if(empty($request->input('bank_account_number'))){
+			$request->merge( array( 'bank_account_number' => null ) );
+		}
+
+		if(empty($request->input('avenue'))){
+			$request->merge( array( 'avenue' => null ) );
+		}
+
+		if(empty($request->input('apartment_number'))){
+			$request->merge( array( 'apartment_number' => null ) );
+		}
+	
+		$user->update($request->all());
+
+		return redirect("/")->with('positive_message', 'Nowe dane zostały zapisane.');
 	}
 
 	/**
@@ -66,7 +102,7 @@ class UserController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$user = User::findOrFail($id);
 	}
 
 }

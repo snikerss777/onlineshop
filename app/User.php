@@ -24,7 +24,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $fillable = ['firstname', 'lastname', 'pesel', 'birth_date', 'number_of_id_card',
 		'telephone_number', 'email', 'password', 'place', 'avenue', 'house_number', 'apartment_number', 
-		'post_code', 'client_status_id', 'kind_of_user_id',
+		'post_code', 'client_status_id', 'kind_of_user_id', 'bank_account_number',
 		];
 
 	/**
@@ -34,4 +34,21 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+	public $edit_rules = [
+			'firstname' => 'required|max:255',
+			'lastname' => 'required|max:255',
+			'pesel' => 'required|max:11|min:11',
+			'birth_date' => 'required',
+			'number_of_id_card' => 'required|max:20',
+			'telephone_number' => 'max:11',
+
+			'email' => 'required|email|max:255',
+			'password' => 'confirmed|min:6',
+			'place' => 'required',
+			'house_number' => 'required',
+			'post_code' => 'required',
+		];
+
+
+	
 }

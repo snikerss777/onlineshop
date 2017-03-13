@@ -24,11 +24,17 @@ Route::controllers([
 
 Route::get('/getCategories/{id}', 'CategoryController@index');
 Route::get('/getAdvertisements/{id}', 'AdvertisementController@index');
+Route::get('/getAdvertisementsByCategory/{id}', 'AdvertisementController@getAdvertisementsByCategory');
 
 
 //User routes
 Route::get('/my_account/{id}', 'UserController@show');
 Route::get('/edit_account/{id}', 'UserController@edit');
-Route::get('/update_account/{id}', 'UserController@update');
+Route::put('/update_account/{id}', 'UserController@update');
 
+
+//Advertisement routes
+Route::resource('advertisement', 'AdvertisementController');
+
+Route::get('/test/', 'AdvertisementController@test');
 

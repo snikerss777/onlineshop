@@ -79,6 +79,100 @@ class CategoriesTableSeeder extends Seeder
             'above_category' => $motoryzacja,
             'created_at' => $now,
         ]);
+
+
+        $samochody_osobowe = Category::where('name', 'Samochody osobowe')->first()->id;
+
+        DB::table('categories')->insert([
+            'name' => "BMW",
+            'above_category' => $samochody_osobowe,
+            'created_at' => $now,
+        ]);
+
+        DB::table('categories')->insert([
+            'name' => "Audi",
+            'above_category' => $samochody_osobowe,
+            'created_at' => $now,
+        ]);
+
+        DB::table('categories')->insert([
+            'name' => "Peugeot",
+            'above_category' => $samochody_osobowe,
+            'created_at' => $now,
+        ]);
+
+
+        $bmw = Category::where('name', 'BMW')->first()->id;
+
+        DB::table('categories')->insert([
+            'name' => "Seria 3",
+            'above_category' => $bmw,
+            'created_at' => $now,
+        ]);
+
+        DB::table('categories')->insert([
+            'name' => "Seria 5",
+            'above_category' => $bmw,
+            'created_at' => $now,
+        ]);
+
+
+        DB::table('categories')->insert([
+            'name' => "Seria 6",
+            'above_category' => $bmw,
+            'created_at' => $now,
+        ]);
+
+
+        DB::table('categories')->insert([
+            'name' => "Seria 7",
+            'above_category' => $bmw,
+            'created_at' => $now,
+        ]);
+
+        $seria3 = Category::where('name', 'Seria 3')->first()->id;
+        
+        DB::table('categories')->insert([
+            'name' => "e36",
+            'above_category' => $seria3,
+            'created_at' => $now,
+        ]);
+
+        DB::table('categories')->insert([
+            'name' => "e46",
+            'above_category' => $seria3,
+            'created_at' => $now,
+        ]);
+
+
+        $motocykle = Category::where('name', 'Motocykle')->first()->id;
+
+        DB::table('categories')->insert([
+            'name' => 'Suzuki',
+            'above_category' => $motocykle,
+            'created_at' => $now,
+        ]);
+
+        DB::table('categories')->insert([
+            'name' => 'Kawasaki',
+            'above_category' => $motocykle,
+            'created_at' => $now,
+        ]);
+
+        $elektronika = Category::where('name', 'Elektronika')->first()->id;
+
+        DB::table('categories')->insert([
+            'name' => 'Komputery',
+            'above_category' => $elektronika,
+            'created_at' => $now,
+        ]);
+
+        DB::table('categories')->insert([
+            'name' => 'Telewizory',
+            'above_category' => $elektronika,
+            'created_at' => $now,
+        ]);
+
     }
 
 }

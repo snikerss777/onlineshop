@@ -8,7 +8,7 @@
 					</div>
 
 					<div class="panel-body" >
-						<a href="">Dodaj ogłoszenie</a>
+						<a href="/advertisement/create">Dodaj ogłoszenie</a>
 					</div>
 
 					<div class="panel-body" >

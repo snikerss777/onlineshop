@@ -1,6 +1,6 @@
+'use strict';
 
-
-var app = angular.module('app', [], function($interpolateProvider) {
+var app = angular.module('app', ['ngStorage'], function($interpolateProvider) {
         $interpolateProvider.startSymbol('<%');
         $interpolateProvider.endSymbol('%>');
     });

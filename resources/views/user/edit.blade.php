@@ -1,12 +1,17 @@
 @extends('app')
 
 @section('breadCrumbs')
+	
+	<ol class="breadcrumb">
+  		<li><a href="/">Home</a></li>
+  		<li class="active">Edytuj dane</li>
+	</ol>
 
 @endsection
 
 
 @section('content')
-	<div class="container" >
+<div class="container" >
 	<div class="row" >
 
 		@include('menus.userMenu')
@@ -17,7 +22,15 @@
 				
 				<div class="panel-body">
 					
+					@include('errors.user')
+
+					{!! Form::model($user, ['method' => 'PUT', 'action' => ['UserController@update', $user->id] , 'class' => 'form-horizontal']) !!}
 						
+						@include('user.form', ['submitButton' => 'Zapisz dane'])
+					
+					{!! Form::close() !!}
+
+
 				</div>
 			</div>
 		</div>

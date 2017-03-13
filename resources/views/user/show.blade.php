@@ -12,7 +12,7 @@
 	
 	<ol class="breadcrumb">
   		<li ><a href="/">Home</a></li>
-  		<li class="active"><a href="/my_account/{{Auth::id()}}">Moje dane</a></li>
+  		<li class="active">Moje dane</li>
 	</ol>
 
 @endsection
@@ -39,10 +39,13 @@
 									<li class="list-group-item">Nazwisko: {{ $user->lastname }}</li>
 									<li class="list-group-item">PESEL: {{ $user->pesel }}</li>
 									<li class="list-group-item">Email: {{ $user->email }}</li>
-									<li class="list-group-item">Data urodzenia: {{ $user->birt_date }}</li>
+									<li class="list-group-item">Data urodzenia: {{ $user->birth_date }}</li>
 									<li class="list-group-item">Numer dowodu osobistego: {{ $user->number_of_id_card }}</li>
 									<li class="list-group-item">Numer telefonu: {{ $user->telephone_number }}</li>
+									<li class="list-group-item"><button onclick="window.location='/edit_account/{{$user->id}}'" type="button" class="btn btn-primary">Edytuj dane</button>
+									</li>
 								</ul>
+
 							</div>
 
 
@@ -55,17 +58,13 @@
 									@endif
 									<li class="list-group-item">Numer domu: {{ $user->house_number }}</li> 
 									@if(!is_null($user->apartment_number) )
-										<li class="list-group-item">Ulica: {{ $user->apartment_number }}</li>
+										<li class="list-group-item">Numer mieszkania: {{ $user->apartment_number }}</li>
 									@endif									
 									<li class="list-group-item">Kod pocztowy: {{ $user->post_code }}</li>
 								</ul>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-9">
-								<button onclick="window.location='/edit_account/{{$user->id}}'" type="button" class="btn btn-primary">Edytuj dane</button>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 			</div>
