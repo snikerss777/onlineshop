@@ -66,6 +66,11 @@ return [
 			'url_type'  => 'publicURL'
 		],
 
+		'image' => [
+            'driver' => 'local',
+            'root'   => public_path().'/images'
+        ],
+
 	],
 
 ];

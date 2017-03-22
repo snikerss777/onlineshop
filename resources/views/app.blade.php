@@ -86,6 +86,8 @@
 	<script src="/Angular/Controllers/MainController.js"></script>
 	<script src="/Angular/Controllers/CategoryController.js"></script>
     <script src="https://rawgithub.com/gsklee/ngStorage/master/ngStorage.js"></script> 
+
+    @yield('scripts')
     
 </body>
 </html>

@@ -22,7 +22,7 @@ class Advertisement extends Model {
 
 	//TODO
 	public $rules = [
-			'name' => 'required|max:255',
+			 'name' => 'required|max:255',
 			'description' => 'required',
 			'price' => 'required',
 			'number_of_copies' => 'required',
@@ -31,6 +31,7 @@ class Advertisement extends Model {
 			'place' => 'required',
 			'used' => 'required',
 			'category_id' => 'required',
+			'deliveryMethods' => 'required|min:1',
 		];
 
 	

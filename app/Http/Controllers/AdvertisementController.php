@@ -10,6 +10,10 @@ use App\AdvertisementStatus;
 use Auth;
 use Carbon;
 use Illuminate\Http\Response;
+use App\Image;
+use App\User;
+use App\AdvertisementDelivery;
+use App\DeliveryMethod;
 
 class AdvertisementController extends Controller {
 
@@ -30,15 +34,20 @@ class AdvertisementController extends Controller {
 	public function index($id)
 	{
 		if($id == 0){
-			$advertisements = Advertisement::all();
+			$advertisements = Advertisement::leftJoin('photos', 'advertisements.photo_id', '=', 'photos.id')
+				->select('advertisements.id as id', 'name', 'category_id' , 'owner_id', 'src', 'photo_id', 'price', 'place')
+				->get();
 		} 
 		else{
 			$category = Category::findOrFail($id);
 			$categories = $category->allChildCategories([])->lists('id');
 			array_push($categories, $id);
-			$advertisements = Advertisement::whereIn('category_id', $categories)->get();
+			$advertisements = Advertisement::leftJoin('photos', 'advertisements.photo_id', '=', 'photos.id')
+				->whereIn('category_id', $categories)
+				->select('advertisements.id as id', 'name', 'category_id' , 'owner_id', 'src', 'photo_id', 'price', 'place')
+				->get();
 		}
-		
+		return $advertisements;
 		return new Response($advertisements);
 	}
 
@@ -57,7 +66,9 @@ class AdvertisementController extends Controller {
 	 */
 	public function create()
 	{
-		return view('advertisement.create');
+		$deliveryMethods = DeliveryMethod::all();
+
+		return view('advertisement.create', compact('deliveryMethods'));
 	}
 
 	/**
@@ -71,7 +82,6 @@ class AdvertisementController extends Controller {
 
 		$inputs = $this->request->all();
 		
-
 		$this->validate($this->request, $rules);
 		$catId = 0;
 		if($this->request->has('category_id4') && !strpos($this->request->input('category_id4'), "undefined") !== false){
@@ -102,11 +112,16 @@ class AdvertisementController extends Controller {
 		$inputs['owner_id'] = Auth::id();
 		$inputs['category_id'] = $catId;
 		$inputs['created_at'] = Carbon\Carbon::now();
-		$inputs['photo_src'] = ""; //TODO
+		//$inputs['photo_src'] = ""; //TODO
 
-		Advertisement::create($inputs);
+		$advertisement = Advertisement::create($inputs);
+		$deliveryMethods = $this->request->input('deliveryMethods');
+
+		foreach ($deliveryMethods as $deliveryMethod) {
+			AdvertisementDelivery::create(['advertisement_id' => $advertisement->id, 'delivery_method_id' => $deliveryMethod]);
+		}
 		
-		return redirect("/")->with('positive_message', 'Twoje ogłoszenie zostało dodane. Teraz czeka na akceptacje administratora.');
+		return redirect("/upload/".$advertisement->id)->with('positive_message', 'Twoje ogłoszenie zostało dodane. Teraz czeka na akceptacje administratora.');
 	}
 
 	/**
@@ -118,8 +133,12 @@ class AdvertisementController extends Controller {
 	public function show($id)
 	{
 		$advertisement = Advertisement::findOrFail($id);
+		$images = Image::where('advertisement_id', $id)->get();
+		$owner = User::findOrFail($advertisement->owner_id);
+		$deliveries = AdvertisementDelivery::join('delivery_methods', 'delivery_methods.id', '=', 'advertisement_deleivery_methods.delivery_method_id')
+			->where('advertisement_deleivery_methods.advertisement_id', $id)->get();
 
-		return view('advertisement.show', compact('advertisement'));
+		return view('advertisement.show', compact('advertisement', 'images', 'owner', 'deliveries'));
 	}
 
 	/**
@@ -157,4 +176,26 @@ class AdvertisementController extends Controller {
 		//
 	}
 
+
+	public function myAdvertisements(){
+
+		$advertisements = Advertisement::leftJoin('photos', 'advertisements.photo_id', '=', 'photos.id')
+				->where('owner_id', Auth::id())
+				->select('advertisements.id as id', 'name', 'category_id' , 'owner_id', 'src', 'photo_id', 'price', 'place')
+				->get();
+
+		return view('advertisement.myAdvertisements', compact('advertisements'));
+	}
+
+
+	public function setIconImage(Request $request){
+		$imageId =  $request->input('imageId');
+
+		$image = Image::findOrFail($imageId);
+		$advertisement = Advertisement::findOrFail($image->advertisement_id);
+		$advertisement->photo_id = $imageId;
+		$advertisement->save();
+
+		return "Miniaturka ogłoszenia została zmieniona";
+	}
 }

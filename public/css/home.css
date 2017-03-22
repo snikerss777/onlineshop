@@ -7,4 +7,33 @@
 
 #centerd-navbar{
 	padding-left: 10%;
+} 
+
+.singleAdvertisementContainer{
+	border: 3px solid #0c760b;
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-left: 5px;
+	margin-right: 5px;
+
+	padding: 10px
 }
+
+.singleAdvertisementContainer h3{
+	margin-top: 0px;
+}
+
+.myImageDiv{
+	/*background: url('../images/default.png');*/
+    background-size: contain;
+    /*background-repeat: no-repeat;*/
+}
+
+
+
+
+
+
+
+
+

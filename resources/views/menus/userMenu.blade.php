@@ -12,7 +12,7 @@
 					</div>
 
 					<div class="panel-body" >
-						<a href="">Moje ogłoszenia</a>
+						<a href="/getMyAdvertisements">Moje ogłoszenia</a>
 					</div>
 
 					<div class="panel-body" >

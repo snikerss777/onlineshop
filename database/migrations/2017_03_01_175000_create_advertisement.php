@@ -28,13 +28,14 @@ class CreateAdvertisement extends Migration {
 			$table->integer('owner_id')->unsigned();
 			$table->integer('category_id')->unsigned();
 			$table->integer('advertisement_status_id')->unsigned();
-			$table->string('photo_src');
+			$table->integer('photo_id')->nullable();
 
 			$table->timestamps();
 
 			$table->foreign('owner_id')->references('id')->on('users');
 			$table->foreign('category_id')->references('id')->on('categories');
 			$table->foreign('advertisement_status_id')->references('id')->on('advertisement_statuses');
+			$table->foreign('photo_id')->references('id')->on('photos');
 
 		});
 	}

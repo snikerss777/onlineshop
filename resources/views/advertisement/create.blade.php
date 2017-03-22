@@ -1,5 +1,7 @@
 @extends('app')
 
+
+
 @section('breadCrumbs')
 	
 	<ol class="breadcrumb">
@@ -10,6 +12,8 @@
 @endsection
 
 
+
+ 
 @section('content')
 <div class="container" >
 	<div class="row" >
@@ -24,7 +28,7 @@
 					
 					@include('errors.user')
 
-					{!! Form::open(['method' => 'POST', 'action' => ['AdvertisementController@store'] , 'class' => 'form-horizontal']) !!}
+					{!! Form::open(['method' => 'POST', 'action' => ['AdvertisementController@store'] , 'files'=> true, 'class' => 'form-horizontal']) !!}
 
 						@include('advertisement.form')
 
@@ -33,9 +37,11 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 
 </div>
+
 
 
 @endsection

@@ -61,8 +61,22 @@
 				<div class="panel-heading">Ogłoszenia </div>
 
 				<div class="panel-body">
-					<div ng-repeat="advertisement in advertisements">
-						<a href="/advertisement/<%advertisement.id%>"> <% advertisement.name %> </a>
+					<div class="container-fluid">
+						<div ng-repeat="advertisement in advertisements" class="row singleAdvertisementContainer">
+							
+								<div class="col-sm-2">
+									<img ng-if="advertisement.src != null" ng-src="/images/<% advertisement.src %>" class="img-responsive">
+									<img ng-if="advertisement.src == null" ng-src="/images/default.png" class="img-responsive">
+								</div>
+								<div class="col-sm-8">
+									<a href="/advertisement/<%advertisement.id%>"><h3> <% advertisement.name %> </h3></a>
+									<p>Miejscowość: <b><% advertisement.place %></b></p>
+								</div>
+								<div class="col-sm-2">
+									<p>Cena: <b><% advertisement.price %> zł</b></p>
+								</div>
+
+						</div>
 					</div>
 				</div>
 			</div>

@@ -1,15 +1,16 @@
 						
 						
 
+
 						<div class="form-group">
-							{!! Form::label('name', 'Nazwa:', ['class' => 'col-md-2 control-label']) !!}
+							{!! Form::label('name', 'Nazwa:', ['class' => 'col-sm-4 control-label']) !!}
 							<div class="col-md-8">
 								{!! Form::text('name', null, ['class' => 'form-control']) !!}
 							</div> 
 						</div>
 
 						<div class="form-group">
-							{!! Form::label('description', 'Opis:', ['class' => 'col-md-2 control-label']) !!}
+							{!! Form::label('description', 'Opis:', ['class' => 'col-sm-4 control-label']) !!}
 							<div class="col-md-8">
 								{!! Form::textarea('description', null, ['class' => 'form-control']) !!}
 							</div> 
@@ -17,7 +18,7 @@
 
 						<!-- //TODO kolumny -->
 						<div class="form-group">
-							{!! Form::label('price', 'Cena:', ['class' => 'col-md-2 control-label']) !!}
+							{!! Form::label('price', 'Cena:', ['class' => 'col-sm-4 control-label']) !!}
 							<div class="col-md-8">
 								{!! Form::input('number', 'price', null, ['class' => 'form-control']) !!}
 							</div> 
@@ -25,14 +26,14 @@
 
 
 						<div class="form-group">
-							{!! Form::label('number_of_copies', 'Liczba egzemplarzy:', ['class' => 'col-md-2 control-label']) !!}
+							{!! Form::label('number_of_copies', 'Liczba egzemplarzy:', ['class' => 'col-sm-4 control-label']) !!}
 							<div class="col-md-8">
 								{!! Form::input('number','number_of_copies', null, ['class' => 'form-control']) !!}
 							</div> 
 						</div>
 
 						<div class="form-group">
-							{!! Form::label('create_year', 'Rok produkcji:', ['class' => 'col-md-2 control-label']) !!}
+							{!! Form::label('create_year', 'Rok produkcji:', ['class' => 'col-sm-4 control-label']) !!}
 							<div class="col-md-8">
 								{!! Form::input('number','create_year', null, ['class' => 'form-control']) !!}
 							</div> 
@@ -40,28 +41,28 @@
 
 
 						<div class="form-group">
-							{!! Form::label('advertisement_duration', 'Czas trwania ogłoszenia:', ['class' => 'col-md-2 control-label']) !!}
+							{!! Form::label('advertisement_duration', 'Czas trwania ogłoszenia:', ['class' => 'col-sm-4 control-label']) !!}
 							<div class="col-md-8">
 								{!! Form::input('number','advertisement_duration', null, ['class' => 'form-control']) !!}
 							</div> 
 						</div>
 						
 						<div class="form-group">
-							{!! Form::label('place', 'Miejscowość:', ['class' => 'col-md-2 control-label']) !!}
+							{!! Form::label('place', 'Miejscowość:', ['class' => 'col-sm-4 control-label']) !!}
 							<div class="col-md-8">
 								{!! Form::text('place', null, ['class' => 'form-control']) !!}
 							</div> 
 						</div>
 
 						<div class="form-group">
-							{!! Form::label('account_number', 'Numer konta bankowego:', ['class' => 'col-md-2 control-label']) !!}
+							{!! Form::label('account_number', 'Numer konta bankowego:', ['class' => 'col-sm-4 control-label']) !!}
 							<div class="col-md-8">
 								{!! Form::input('number', 'account_number', Auth::User()->bank_account_number, ['class' => 'form-control']) !!}
 							</div> 
 						</div>
 
 						<div class="form-group">
-							{!! Form::label('used', 'Czy używany:', ['class' => 'col-md-2 control-label']) !!}
+							{!! Form::label('used', 'Czy używany:', ['class' => 'col-sm-4 control-label']) !!}
 							<div class="col-md-8">
 								{!! Form::select('used', array(1 => 'Tak', 0 => 'Nie'), null, ['class' => 'form-control']) !!}
 							</div> 
@@ -69,7 +70,7 @@
 
 
 						<div class="form-group">
-							{!! Form::label('category_id', 'Kategoria:', ['class' => 'col-md-2 control-label']) !!}
+							{!! Form::label('category_id', 'Kategoria:', ['class' => 'col-sm-4 control-label']) !!}
 							<div class="col-md-8">
 								<select name="category_id" ng-change="getCategories(select_category_model_1, 0, 0)" ng-model="select_category_model_1">
 								  <option ng-repeat="mainCategory in mainCategories" value="<% mainCategory.id %>"> <% mainCategory.name %></option>
@@ -95,10 +96,29 @@
 						</div>
 
 						<div class="form-group">
-							<div class="col-md-2 col-md-offset-2">
+							{!! Form::label('delivery_methods', 'Wybierz dostępne metody dostawy: ', ['class' => 'col-sm-4 control-label']) !!}
+							<div class="col-sm-8" >
+							  	@foreach($deliveryMethods as $deliveryMethod)
+								  	<div class="checkbox">
+									  	<label>
+									  		<input type="checkbox" value="{{$deliveryMethod->id}}" name="deliveryMethods[]" 
+									  			{{ ( is_array( Input::old('deliveryMethods')) && in_array($deliveryMethod->id, Input::old('deliveryMethods') ) ) ? 'checked' : '' }}>
+									  		{{$deliveryMethod->name}}
+									  	</label>
+									</div>
+								@endforeach
+							</div>
+						</div>
+
+					
+
+
+						<div class="form-group">
+							<div class="col-sm-4 col-md-offset-4">
 								<button type="submit" class="btn btn-primary" ng-click="createStorage()">
 									Dodaj ogłoszenie
 								</button>
 							</div>
 						</div>
+
 

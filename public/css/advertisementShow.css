@@ -1,0 +1,30 @@
+.imageContainer{
+	margin-top: 2.2em;
+	border: 2px solid #dadada;
+	border-radius: 5px;
+	margin: 1px;
+	margin-top: 10px;
+
+	padding: 5px;
+}
+
+
+.onePhotoContainer{
+	padding: 0px;
+}
+
+.glyphicon {
+    font-size: inherit;
+}
+
+.myItem{
+	display: none;
+}
+
+.right{
+	float: right;
+}
+
+.nextRow{
+	margin-top: 20px;
+}

@@ -35,6 +35,15 @@ Route::put('/update_account/{id}', 'UserController@update');
 
 //Advertisement routes
 Route::resource('advertisement', 'AdvertisementController');
+Route::get('/getMyAdvertisements', 'AdvertisementController@myAdvertisements');
+Route::post('/setIconImage', 'AdvertisementController@setIconImage');
 
-Route::get('/test/', 'AdvertisementController@test');
+Route::get('/test/{id}', 'AdvertisementController@index');
+
+
+//Image routes
+Route::post('/upload', ['as' => 'image.store' , 'uses' => 'ImageController@store']);
+Route::get('/upload/{id}', ['as' => 'image.create' , 'uses' => 'ImageController@create']);
+Route::get('/removeUpload/{id}', ['as' => 'image.removeUpload' , 'uses' => 'ImageController@removeUpload']);
+
 
