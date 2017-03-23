@@ -47,3 +47,8 @@ Route::get('/upload/{id}', ['as' => 'image.create' , 'uses' => 'ImageController@
 Route::get('/removeUpload/{id}', ['as' => 'image.removeUpload' , 'uses' => 'ImageController@removeUpload']);
 
 
+//Transaction routes
+Route::get('/transaction/create/{id}', 'TransactionController@create');
+Route::get('/transaction/done', 'TransactionController@doneDeals');
+Route::get('/transaction/sold', 'TransactionController@soldThings');
+Route::post('/transaction', ['as' => 'transaction.store' , 'uses' => 'TransactionController@store']);

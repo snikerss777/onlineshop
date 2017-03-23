@@ -58,8 +58,9 @@
 						        </div>
 
 						        <div class="row imageContainer">
+						        	
 						        	<div class="col-sm-1">
-							        	<i class="glyphicon glyphicon-menu-left" onclick="getPreviousPhotos()"></i>
+							        	@if(count($images) > 3 ) <i class="glyphicon glyphicon-menu-left" onclick="getPreviousPhotos()"></i> @endif
  									</div>
 						        	@foreach($images as $index => $image)
 							                
@@ -69,21 +70,46 @@
  											
 						            @endforeach
 						           	<div class="col-sm-1">
-							        	<i class="glyphicon glyphicon-menu-right" onclick="getNextPhotos({{count($images)}})"></i>
+							        	@if(count($images) >3 ) <i class="glyphicon glyphicon-menu-right" onclick="getNextPhotos({{count($images)}})"></i>@endif
  									</div>
 						        	
 						        </div>
 
 							</div>
-							@endif
 
 							<div class="col-sm-5" style="float:rigth">
-								<h3 @if(count($images) != 0) class="right" @endif>Cena: {{$advertisement->price}} zł</h3>
-								<h4 @if(count($images) != 0) class="right" @endif>Liczba dostępnych egzemplarzy: {{$advertisement->number_of_copies}}</h4>
-								@if(Auth::id() != $owner->id) <button class="btn btn-primary btn-lg  @if(count($images) != 0)right @endif">Kup teraz</button>@endif
-							</div>	
+								<h3  class="right">Cena: {{$advertisement->price}} zł</h3>
+								<h4  class="right">Liczba dostępnych egzemplarzy: {{$advertisement->number_of_copies}}</h4>
+								@if(Auth::id() != $owner->id) <button class="btn btn-primary btn-lg  right buttonDown2" onclick="goToCreateTransaction({{$advertisement->id}})">Kup teraz</button>
+								@else 
+									<button class="btn btn-primary btn-lg  right buttonDown2" onclick="goToEditAdvertisement({{$advertisement->id}})">Edytuj ogłoszenie</button><br>
+									<button class="btn btn-primary btn-lg  right buttonDown2" onclick="goToUploadPhoto({{$advertisement->id}})">Zarządzaj zdjęciami</button>
+
+								@endif
+							</div>
+							@else
+								<div class="col-sm-6">
+									<h3 class="">Liczba dostępnych egzemplarzy: {{$advertisement->number_of_copies}}</h3>
+								</div>
+
+								<div class="col-sm-6">
+									<h3 class="right">Cena: {{$advertisement->price}} zł</h3>
+									<div class="row">
+										<div class="col-sm-12">
+											@if(Auth::id() == $owner->id) 
+												<button class="btn btn-primary btn-lg buttonDown right"  onclick="goToUploadPhoto({{$advertisement->id}})">Zarządzaj zdjęciami</button>
+												<button class="btn btn-primary btn-lg buttonDown right buttonRight"  onclick="goToEditAdvertisement({{$advertisement->id}})">Edytuj ogłoszenie</button>
+											@else
+												<button class="btn btn-primary btn-lg buttonDown right " onclick="goToCreateTransaction({{$advertisement->id}})">Kup teraz</button>
+											@endif
+										</div>
+									</div>
+								</div>
+							@endif
 
 						</div>	
+
+						<hr>
 
 						<div class="row nextRow">
 							
@@ -102,6 +128,8 @@
 
 						</div>		
 
+						<hr>
+
 						<div class="row nextRow">
 							<div class="col-sm-12">
 								<h3>Możliwe sposoby dostawy: 
@@ -112,6 +140,8 @@
 							</div>
 						</div>	
 
+						<hr>
+
 						<div class="row nextRow">
 							<div class="col-sm-12">
 								<article>
@@ -120,6 +150,8 @@
 								</article>
 							</div>
 						</div>
+
+						<hr>
 
 						<div class="row nextRow">
 							<div class="col-sm-6">

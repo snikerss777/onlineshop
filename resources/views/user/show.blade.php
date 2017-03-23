@@ -26,14 +26,14 @@
 
 		@include('menus.userMenu')
 
-		<div class="col-md-9">
+		<div class="col-sm-9">
 			<div class="panel panel-default">
 				<div class="panel-heading">Moje dane</div>
 				
 				<div class="panel-body">
 					<div class="container">
 						<div class="row">
-							<div class="col-md-4">
+							<div class="col-sm-4">
 								<ul class="list-group">
 									<li class="list-group-item">Imie: {{$user->firstname}}</li>
 									<li class="list-group-item">Nazwisko: {{ $user->lastname }}</li>
@@ -49,7 +49,7 @@
 							</div>
 
 
-							<div class="col-md-4">
+							<div class="col-sm-4">
 								<ul class="list-group">
 									<li class="list-group-item">Numer konta bankowego: 28174746362134571234622345</li>
 									<li class="list-group-item">Miejscowość: {{ $user->place }}</li>

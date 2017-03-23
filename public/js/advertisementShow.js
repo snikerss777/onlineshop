@@ -27,3 +27,15 @@ function getPreviousPhotos() {
 		$('#onePhotoContainerId'+(photoCounter+2)).removeClass('myItem');
 	}
 }
+
+function goToUploadPhoto(id){
+	window.location.replace('/upload/'+id);
+}
+
+function goToEditAdvertisement(id){
+	window.location.replace('/advertisement/'+id+'/edit');
+}
+
+function goToCreateTransaction(id){
+		window.location.replace('/transaction/create/'+id);
+}

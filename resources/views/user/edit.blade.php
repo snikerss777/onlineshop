@@ -16,7 +16,7 @@
 
 		@include('menus.userMenu')
 
-		<div class="col-md-9">
+		<div class="col-sm-9">
 			<div class="panel panel-default">
 				<div class="panel-heading">Edytuj dane</div>
 				

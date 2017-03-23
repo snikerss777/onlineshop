@@ -1,4 +1,4 @@
-<div class="col-md-3">
+<div class="col-sm-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">Menu główne</div>
 
@@ -16,11 +16,11 @@
 					</div>
 
 					<div class="panel-body" >
-						<a href="">Zakupione przedmioty</a>
+						<a href="/transaction/done">Zakupione przedmioty</a>
 					</div>
 
 					<div class="panel-body" >
-						<a href="">Sprzedane przedmioty</a>
+						<a href="/transaction/sold">Sprzedane przedmioty</a>
 					</div>
 
 					<div class="panel-body" >

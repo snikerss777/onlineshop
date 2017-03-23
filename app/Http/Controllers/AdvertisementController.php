@@ -181,10 +181,12 @@ class AdvertisementController extends Controller {
 
 		$advertisements = Advertisement::leftJoin('photos', 'advertisements.photo_id', '=', 'photos.id')
 				->where('owner_id', Auth::id())
-				->select('advertisements.id as id', 'name', 'category_id' , 'owner_id', 'src', 'photo_id', 'price', 'place')
+				->select('advertisements.id as id', 'name', 'category_id' , 'owner_id', 'src', 'photo_id', 'price', 'place', 'number_of_copies')
 				->get();
 
-		return view('advertisement.myAdvertisements', compact('advertisements'));
+		$is_accepted = false;
+		
+		return view('advertisement.myAdvertisements', compact('advertisements', 'is_accepted'));
 	}
 
 

@@ -4,7 +4,7 @@
 	
 	<ol class="breadcrumb">
   		<li ><a href="/">Home</a></li>
-  		<li class="active">Moje ogłoszenia</li>
+  		<li class="active">Sprzedane przedmioty</li>
 	</ol>
 
 @endsection
@@ -23,12 +23,12 @@
 
 		<div class="col-md-9">
 			<div class="panel panel-default">
-				<div class="panel-heading">Moje ogłoszenia</div>
+				<div class="panel-heading">Sprzedane przedmioty</div>
 					
 				<div class="panel-body" >
 					
-					@include('advertisement.list', ['right_bottom_paragraph' => '', 'link' => '/advertisement/', 
-						'sold' => false])
+					@include('advertisement.list', ['right_bottom_paragraph' => 'Transakcja oczekuje na akceptację', 'link' => '/transaction/sold/', 
+						'sold' => true])
 
 				</div>
 			</div>
