@@ -18,6 +18,14 @@
 						</div>
 					@endif
 
+					@if ( session()->has('message') )
+					    <div class="alert alert-info alert-dismissable">
+					    	<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					    	{!! session()->get('message') !!}
+					    </div>
+					@endif
+
+
 					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 

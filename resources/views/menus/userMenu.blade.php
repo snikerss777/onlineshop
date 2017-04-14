@@ -1,35 +1,18 @@
 <div class="col-sm-3">
 			<div class="panel panel-default">
-				<div class="panel-heading">Menu główne</div>
+				<div class="panel-heading marginBottom5">Menu główne</div>
 
-				
-					<div class="panel-body" >
-						<a href="/my_account/{{Auth::id() }}">Moje dane</a>
-					</div>
+				<ul class=" nav nav-pills nav-stacked" >
+					<li @if(Request::is('my_account/*'))  class="active" @endif><a href="/my_account/{{Auth::id() }}"><i class="fa fa-home fa-fw"></i>Moje dane</a></li>
+	                <!-- <li @if(Request::is('advertisement/create'))  class="active" @endif><a href="/advertisement/create"><i class="fa fa-list-alt fa-fw"></i>Dodaj ogłoszenie</a></li> -->
+	                <!-- <li @if(Request::is('getMyAdvertisements'))  class="active" @endif><a href="/getMyAdvertisements"><i class="fa fa-file-o fa-fw"></i>Moje ogłoszenia</a></li> -->
+	                <li @if(Request::is('transaction/done'))  class="active" @endif><a href="/transaction/done"><i class="fa fa-bar-chart-o fa-fw"></i>Zakupione przedmioty</a></li>
+	                <!-- <li @if(Request::is('transaction/sold'))  class="active" @endif><a href="/transaction/sold"><i class="fa fa-table fa-fw"></i>Sprzedane przedmioty</a></li> -->
+	                <li @if(Request::is('getObservedAdvertisements'))  class="active" @endif><a href="/getObservedAdvertisements"><i class="fa fa-tasks fa-fw"></i>Koszyk</a></li>
+	                <li @if(Request::is('edit_account/*'))  class="active" @endif><a href="/edit_account/{{Auth::id()}}"><i class="fa fa-tasks fa-fw"></i>Edytuj konto</a></li>
 
-					<div class="panel-body" >
-						<a href="/advertisement/create">Dodaj ogłoszenie</a>
-					</div>
-
-					<div class="panel-body" >
-						<a href="/getMyAdvertisements">Moje ogłoszenia</a>
-					</div>
-
-					<div class="panel-body" >
-						<a href="/transaction/done">Zakupione przedmioty</a>
-					</div>
-
-					<div class="panel-body" >
-						<a href="/transaction/sold">Sprzedane przedmioty</a>
-					</div>
-
-					<div class="panel-body" >
-						<a href="">Obserwowane</a>
-					</div>
-
-					<div class="panel-body" >
-						<a href="/edit_account/{{Auth::id()}}">Edytuj konto</a>
-					</div>
+					
+				</ul>
 
 			</div>
 </div>

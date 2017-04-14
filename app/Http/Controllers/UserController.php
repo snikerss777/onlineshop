@@ -105,4 +105,8 @@ class UserController extends Controller {
 		$user = User::findOrFail($id);
 	}
 
+	public function authUser()
+	{
+		return redirect("auth/login")->with('message', 'Aby dokonać zamówienia musisz być zalogowany. Jeśli nie masz jeszcze konta, <a href="auth/register"> zarejestruj się </a>');
+	}
 }

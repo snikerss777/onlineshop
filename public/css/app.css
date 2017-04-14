@@ -1,4 +1,45 @@
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+
+
+.abc{
+  background-color: red!important;
+  color: white!important;
+}
+
+.panel-heading{
+  color: white !important;
+    background: #383838 !important;
+    font-weight: bold;
+    font-size: large;
+    padding: 10px;
+    padding-left: 20px;
+    border:none;
+}
+
+
+.breadcrumb{
+  background-color: white!important;
+  border-bottom: 2px dotted black;
+  border-radius: none;
+}
+
+.breadcrumb li{
+  color: black !important;
+  text-transform: uppercase;
+}
+
+.breadcrumb li a{
+  /*text-decoration: none !important;*/
+  /*color: black !important;*/
+
+}
+
+
+
+
+
+
+
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;

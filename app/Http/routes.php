@@ -19,10 +19,12 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
+Route::get('/user/login', 'UserController@authUser');
 
 //angular routes
 
 Route::get('/getCategories/{id}', 'CategoryController@index');
+Route::get('/getEditCategories/{id}', 'CategoryController@getEditCategories');
 Route::get('/getAdvertisements/{id}', 'AdvertisementController@index');
 Route::get('/getAdvertisementsByCategory/{id}', 'AdvertisementController@getAdvertisementsByCategory');
 
@@ -37,13 +39,16 @@ Route::put('/update_account/{id}', 'UserController@update');
 Route::resource('advertisement', 'AdvertisementController');
 Route::get('/getMyAdvertisements', 'AdvertisementController@myAdvertisements');
 Route::post('/setIconImage', 'AdvertisementController@setIconImage');
+Route::get('/advertisement/edit/{id}', ['as' => 'advertisement/edit/' , 'uses' => 'AdvertisementController@edit']);
+Route::get('/advertisement/destroy/{id}', ['as' => 'advertisement/destroy/' , 'uses' => 'AdvertisementController@destroy']);
+
 
 Route::get('/test/{id}', 'AdvertisementController@index');
 
 
 //Image routes
 Route::post('/upload', ['as' => 'image.store' , 'uses' => 'ImageController@store']);
-Route::get('/upload/{id}', ['as' => 'image.create' , 'uses' => 'ImageController@create']);
+Route::get('/upload/{id}', ['as' => 'upload/' , 'uses' => 'ImageController@create']);
 Route::get('/removeUpload/{id}', ['as' => 'image.removeUpload' , 'uses' => 'ImageController@removeUpload']);
 
 
@@ -51,4 +56,24 @@ Route::get('/removeUpload/{id}', ['as' => 'image.removeUpload' , 'uses' => 'Imag
 Route::get('/transaction/create/{id}', 'TransactionController@create');
 Route::get('/transaction/done', 'TransactionController@doneDeals');
 Route::get('/transaction/sold', 'TransactionController@soldThings');
+Route::get('/transaction/{id}', 'TransactionController@show');
+Route::get('/acceptTransaction/{id}', 'TransactionController@acceptTransaction');
 Route::post('/transaction', ['as' => 'transaction.store' , 'uses' => 'TransactionController@store']);
+// Route::get('/goToAdvertisement', ['as' => 'transaction.goToAdvertisement' , 'uses' => 'AdvertisementController@index']);
+
+Route::get('goToAdvertisement/{id}', array('as' => 'goToAdvertisement/', 'uses' => 'AdvertisementController@show'));
+
+
+//Observed Advertisements routes
+Route::get('/getObservedAdvertisements', 'ObservedAdvertisementController@index');
+Route::get('/observedAdvertisement/store/{id}', 'ObservedAdvertisementController@store');
+Route::get('/observedAdvertisement/delete/{id}', 'ObservedAdvertisementController@destroy');
+
+
+
+
+//Bracket Routes
+Route::get('/bracket/{id}', 'BracketController@show');
+Route::get('/bracket', 'BracketController@index');
+Route::get('/bracket/remove/{id}', 'BracketController@removeProduct');
+Route::get('/bracket/convertCost', 'BracketController@convertCost');

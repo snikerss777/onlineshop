@@ -11,6 +11,7 @@ use Illuminate\Filesystem\Filesystem;
 use App\Advertisement;
 use App\image;
 use File;
+use MyImage;
 
 class ImageController extends Controller {
 
@@ -35,17 +36,33 @@ class ImageController extends Controller {
 
         if ( $request->isXmlHttpRequest() )
         {
-            $image = $request->file( 'image' );
             $timestamp = $this->getFormattedTimestamp();
+
+            $image = $request->file( 'image' );
+            $imageIcon = $request->file( 'image' );
+            $imageOriginal = $request->file( 'image' );
+            
             $savedImageName = $this->getSavedImageName( $timestamp, $image, $request->input('advertisement_id'));
+            $savedIconName = $this->getSavedIconName($timestamp, $image, $request->input('advertisement_id'));
+            $savedOriginalName = $this->getSavedOriginalName($timestamp, $imageOriginal, $request->input('advertisement_id'));
 
             $imageUploaded = $this->uploadImage( $image, $savedImageName, $storage );
+            $iconUploaded = $this->uploadImage($imageIcon, $savedIconName, $storage);
+            $originalUploaded = $this->uploadImage($imageOriginal, $savedOriginalName, $storage);
+           
+            $path = public_path('images/' . $savedIconName);
+            MyImage::make($imageIcon->getRealPath())->fit(100, 100)->save($path);
+
+            $path2 = public_path('images/' . $savedImageName);
+            MyImage::make($image->getRealPath())->fit(640, 480)->save($path2);
 
             $inputs = $request->all();
             $inputs['src'] = $savedImageName;
+            $inputs['icon_src'] = $savedIconName;
+            $inputs['original_src'] = $savedOriginalName;
             $imageDb = Image::create($inputs);
-
-            if ( $imageUploaded )
+            
+            if ( $imageUploaded)
             {
                 $data = [
                     'image_id' => $imageDb->id,
@@ -97,6 +114,8 @@ class ImageController extends Controller {
         return $storage->disk( 'image' )->put( $imageFullName, $filesystem->get( $image ) );
     }
 
+   
+
     /**
      * @return string
      */
@@ -113,5 +132,15 @@ class ImageController extends Controller {
     protected function getSavedImageName( $timestamp, $image, $advertisement_id)
     {
         return $timestamp . '---'.$advertisement_id . "---" . $image->getClientOriginalName();
+    }
+
+    protected function getSavedIconName( $timestamp, $image, $advertisement_id)
+    {
+        return $timestamp . '---'.$advertisement_id . "---icon---" . $image->getClientOriginalName();
+    }
+
+    protected function getSavedOriginalName( $timestamp, $image, $advertisement_id)
+    {
+        return $timestamp . '---'.$advertisement_id . "---original---" . $image->getClientOriginalName();
     }
 }

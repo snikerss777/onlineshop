@@ -10,7 +10,7 @@
 } 
 
 .singleAdvertisementContainer{
-	border: 3px solid #0c760b;
+	border: 3px solid #337ab7;
 	border-radius: 10px;
 	margin-top: 10px;
 	margin-left: 5px;
@@ -34,8 +34,120 @@
 }
 
 
+.displayNone{
+	display: none;
+}
+
+.textAlignOnRight{
+	text-align:right;
+	width: 100%;
+}
+
+.onRight{
+	float:right;
+}
+
+
+.marginBottom5{
+	margin-bottom: 20px;
+}
+
+.marginRight10{
+	margin-right: 10px 
+}
 
 
 
+.list-group.panel > .list-group-item {
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px
+}
+
+#mainMenu ul {
+  list-style-type: none;
+  margin-bottom: 10px;
+}
+
+#mainMenu ul {
+  list-style-type: none;
+}
+
+.myItem{
+	margin-bottom: 10px;
+}
 
 
+.advertisementItem{
+	margin-bottom: 20px;
+	padding: 10px;
+}
+
+.itemContainer{
+	border: 2px solid black;
+
+}
+
+.myImageContainer{
+	background-color: white;
+	width: 100%;
+	padding-top: 80%;
+}
+
+.myImageContainer img{
+ 	position:  absolute;
+   	top: 0;
+   	left: 0;
+   	bottom: 0;
+   	right: 0;
+   	padding: 20px;
+   	max-height: 57%
+}
+
+.myTextContainer{
+	background-color: #383838;
+	font-weight: bold;
+	color: white;
+	height: 25%;
+
+}
+
+.myTextContainer div{
+	/*position:  absolute;*/
+   	text-align: center;
+   	padding: 20px;
+}
+
+.myTextContainer a {
+	color:white;
+}
+
+.myTextContainer button{
+	margin-top: 15px;
+	background-color:red;
+	border:none;
+	padding-right: 15px;
+	padding-left: 15px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+/*	font-size: 16px;
+*/}
+
+.myTextContainer button:hover{
+	background-color: white;
+	color: #383838;
+}
+
+.myTextContainer .name{
+	line-height: 1.5em;
+    height: 4.5em;
+}
+
+.myTextContainer p span a{
+	color:white;
+}
+
+.myTextContainer p span 
+{
+    display: block;
+    margin-bottom: 10px;
+}

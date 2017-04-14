@@ -24,7 +24,7 @@
 			<div class="panel panel-default" ng-controller="CategoriesController">
 				<div class="panel-heading">Dodaj ogłoszenie</div>
 				
-				<div class="panel-body" ng-init="getCategoriesWithStorage()">
+				<div class="panel-body" ng-init="getCategoriesWithStorage(0,0)">
 					
 					@include('errors.user')
 

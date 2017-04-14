@@ -10,10 +10,10 @@ function getNextPhotos(count_of_photos) {
 	if(photoCounter+3 < count_of_photos){
 		photoCounter = photoCounter + 3;
 
-		$('.onePhotoContainer').addClass('myItem');
-		$('#onePhotoContainerId'+photoCounter).removeClass('myItem');
-		$('#onePhotoContainerId'+(photoCounter+1)).removeClass('myItem');
-		$('#onePhotoContainerId'+(photoCounter+2)).removeClass('myItem');
+		$('.onePhotoContainer').addClass('myImageItem');
+		$('#onePhotoContainerId'+photoCounter).removeClass('myImageItem');
+		$('#onePhotoContainerId'+(photoCounter+1)).removeClass('myImageItem');
+		$('#onePhotoContainerId'+(photoCounter+2)).removeClass('myImageItem');
 	}
 }
 
@@ -21,16 +21,14 @@ function getPreviousPhotos() {
 	if(photoCounter > 0){
 		photoCounter = photoCounter - 3;
 
-		$('.onePhotoContainer').addClass('myItem');
-		$('#onePhotoContainerId'+photoCounter).removeClass('myItem');
-		$('#onePhotoContainerId'+(photoCounter+1)).removeClass('myItem');
-		$('#onePhotoContainerId'+(photoCounter+2)).removeClass('myItem');
+		$('.onePhotoContainer').addClass('myImageItem');
+		$('#onePhotoContainerId'+photoCounter).removeClass('myImageItem');
+		$('#onePhotoContainerId'+(photoCounter+1)).removeClass('myImageItem');
+		$('#onePhotoContainerId'+(photoCounter+2)).removeClass('myImageItem');
 	}
 }
 
-function goToUploadPhoto(id){
-	window.location.replace('/upload/'+id);
-}
+
 
 function goToEditAdvertisement(id){
 	window.location.replace('/advertisement/'+id+'/edit');

@@ -10,6 +10,7 @@ use App\User;
 use Carbon;
 use App\AdvertisementDelivery;
 use Auth;
+use App\DeliveryMethod;
 
 class TransactionController extends Controller {
 
@@ -96,7 +97,19 @@ class TransactionController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$advertisement = Advertisement::join('done_deals', 'done_deals.advertisement_id', '=', 'advertisements.id')
+				->leftJoin('photos', 'advertisements.photo_id', '=', 'photos.id')
+				->where('done_deals.id', $id)
+				->select('done_deals.id as id', 'advertisements.id as advertisement_id' , 'name', 'done_deals.created_at', 'src', 
+					'price', 'place', 'done_deals.number_of_copies as number_of_copies', 'is_accepted', 'done_deals.owner_id', 
+					'buyer_id' , 'delivery_method_id')
+				->first();
+		
+		$deliveryMethod = DeliveryMethod::findOrFail($advertisement->delivery_method_id);
+		$owner = User::findOrFail($advertisement->owner_id);
+		$buyer = User::findOrFail($advertisement->buyer_id);
+
+		return view('transaction.show', compact('advertisement', 'deliveryMethod', 'owner', 'buyer'));
 	}
 
 	/**
@@ -132,4 +145,11 @@ class TransactionController extends Controller {
 		//
 	}
 
+	public function acceptTransaction($id){
+		$transaction = Transaction::findOrFail($id);
+		$transaction->is_accepted = true;
+		$transaction->save();
+
+		return "Transakcja zaakceptowana poprawnie.";
+	}
 }

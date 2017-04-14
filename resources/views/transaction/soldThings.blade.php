@@ -27,7 +27,7 @@
 					
 				<div class="panel-body" >
 					
-					@include('advertisement.list', ['right_bottom_paragraph' => 'Transakcja oczekuje na akceptację', 'link' => '/transaction/sold/', 
+					@include('advertisement.list', ['right_bottom_paragraph' => 'Akceptuj transakcje', 'link' => '/transaction/', 
 						'sold' => true])
 
 				</div>

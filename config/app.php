@@ -194,7 +194,7 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'		=> 'Illuminate\Html\FormFacade',
-		'Image' 	=> 'Intervention\Image\Facades\Image',
+		'MyImage' 	=> 'Intervention\Image\Facades\Image',
 	],
 
 ];

@@ -29,8 +29,9 @@
 		</div>
 
 		<div class="form-group">
-				{!! Form::label('cost_of_tranaction', 'Całkowity koszt: '. ($advertisement->price ) . 'zł', ['class' => 'control-label']) !!}
+			{!! Form::label('account_number', 'Numer konta bankowego: '. $advertisement->account_number, ['class' => 'control-label']) !!}
 		</div>
+
 
 	</div>
 
@@ -50,7 +51,7 @@
 		</div>
 
 		<div class="form-group">
-			{!! Form::label('account_number', 'Numer konta bankowego: '. $advertisement->account_number, ['class' => 'control-label']) !!}
+				<h3>Całkowity koszt: {{ $advertisement->price}} zł</h3>
 		</div>
 
 		<div class="form-group buttonDown2">

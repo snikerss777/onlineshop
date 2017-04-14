@@ -69,7 +69,7 @@
 										  <div id="img{{$image->id}}" class="gallery_product col-lg-4 col-md-4 col-sm-4 col-xs-6 filter hdpe">
 										  		
 										  		<a href=""><i  class="glyphicon glyphicon-link myIcon" id="changeIcon" onclick="setAsIcon({{$image->id}})"></i></a>
-										  		<a href=""><i  class="glyphicon glyphicon-remove myIcon" id="removeIcon" onclick="removeIcon({{$image->id}})"></i></a>
+										  		<a href=""><i  class="glyphicon glyphicon-remove myIcon" id="removeIcon" onclick="removeImage({{$image->id}})"></i></a>
 								                <img id="imgId{{$image->id}}" src="/images/{{$image->src}}" class="img-responsive @if($advertisement->photo_id == $image->id) iconImage @endif">
 								          </div>
 									@endforeach
