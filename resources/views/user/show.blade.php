@@ -24,7 +24,15 @@
 <div class="container" >
 	<div class="row" >
 
-		@include('menus.userMenu')
+		@if(Auth::user()->kind_of_user_id == 6)
+
+			@include('menus.userMenu')
+
+		@else
+
+			@include('menus.adminMenu')
+
+		@endif
 
 		<div class="col-sm-9">
 			<div class="panel panel-default">

@@ -36,6 +36,7 @@ class AdvertisementController extends Controller {
 	{
 		if($id == 0){
 			$advertisements = Advertisement::leftJoin('photos', 'advertisements.photo_id', '=', 'photos.id')
+				->where('number_of_copies', '>', 0)
 				->select('advertisements.id as id', 'name', 'category_id' , 'owner_id', 'src', 'photo_id', 'price', 'place')
 				->get();
 		} 
@@ -45,6 +46,7 @@ class AdvertisementController extends Controller {
 			array_push($categories, $id);
 			$advertisements = Advertisement::leftJoin('photos', 'advertisements.photo_id', '=', 'photos.id')
 				->whereIn('category_id', $categories)
+				->where('number_of_copies', '>', 0)
 				->select('advertisements.id as id', 'name', 'category_id' , 'owner_id', 'src', 'photo_id', 'price', 'place')
 				->get();
 		}
@@ -174,16 +176,15 @@ class AdvertisementController extends Controller {
 	 * @return Response
 	 */
 	public function update($id)
-	{
+	{	
 		$rules = $this->advertisement->rules;
 		$inputs = $this->request->all();
 		$this->validate($this->request, $rules);
 
 		$inputs['category_id'] = $this->selectCategory();
-		
 		$advertisement = Advertisement::findOrFail($id);
-		$advertisement->update($inputs);
 		
+		$advertisement->update($inputs);
 		$this->setDeliveryMethods($advertisement);
 		
 		return redirect("/")->with('positive_message', 'Twoje ogłoszenie zostało zmienione.');
@@ -253,11 +254,16 @@ class AdvertisementController extends Controller {
 
 	private function setDeliveryMethods($advertisement){
 		$deliveryMethods = $this->request->input('deliveryMethods');
-		$oldDeliveryMethods = AdvertisementDelivery::where('advertisement_id', $advertisement->id);
+		$oldDeliveryMethods = AdvertisementDelivery::where('advertisement_id', $advertisement->id)->get();
+
+		foreach ($oldDeliveryMethods as $oldDeliveryMethod) {
+			$oldDeliveryMethod->delete();
+		}
+
 		foreach ($deliveryMethods as $deliveryMethod) {
-			
 			AdvertisementDelivery::create(['advertisement_id' => $advertisement->id, 'delivery_method_id' => $deliveryMethod]);
 		}
+
 	}
 
 }

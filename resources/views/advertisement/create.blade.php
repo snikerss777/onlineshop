@@ -18,7 +18,7 @@
 <div class="container" >
 	<div class="row" >
 
-		@include('menus.userMenu')
+		@include('menus.adminMenu')
 
 		<div class="col-md-9">
 			<div class="panel panel-default" ng-controller="CategoriesController">

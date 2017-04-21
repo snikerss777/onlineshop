@@ -107,10 +107,10 @@
  								
 
  								@if(!Auth::check() || Auth::User()->kind_of_user_id == 6 ) 
-									<div class="row">
+									<div class="row right">
 										
 										<div class="col-sm-12">
-											<a class="btn btn-primary btn-lg  right buttonDown2 buttonAddToBracket" 
+											<a class="btn btn-primary btn-lg  buttonDown2 buttonAddToBracket" 
 												href="/bracket/{{$advertisement->id}}" >DODAJ DO KOSZYKA</a>
 										</div>
 									</div>

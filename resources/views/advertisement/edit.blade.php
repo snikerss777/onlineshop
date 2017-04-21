@@ -19,7 +19,7 @@
 <div class="container" >
 	<div class="row" >
 
-		@include('menus.userMenu')
+		@include('menus.adminMenu')
 
 		<div class="col-md-9">
 			<div class="panel panel-default" ng-controller="CategoriesController">
@@ -29,7 +29,7 @@
 					
 					@include('errors.user')
 
-					{!! Form::model($advertisement, ['method' => 'PATCH', 'action' => ['AdvertisementController@update'] , 'files'=> true, 'class' => 'form-horizontal']) !!}
+					{!! Form::model($advertisement, ['method' => 'PATCH', 'action' => ['AdvertisementController@update', $advertisement->id] , 'files'=> true, 'class' => 'form-horizontal']) !!}
 
 						@include('advertisement.form')
 

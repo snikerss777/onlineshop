@@ -17,7 +17,7 @@ class Advertisement extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'description', 'price', 'number_of_copies', 'end_date', 'account_number',
+	protected $fillable = ['name', 'description', 'price', 'number_of_copies', 'end_date',
 		'place', 'create_year', 'used', 'owner_id', 'category_id', 'advertisement_status_id', 'created_at', 'updated_at'] ;
 
 	//TODO

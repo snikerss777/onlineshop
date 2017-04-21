@@ -47,7 +47,7 @@
 	float:right;
 }
 
-
+ 
 .marginBottom5{
 	margin-bottom: 20px;
 }
@@ -150,4 +150,17 @@
 {
     display: block;
     margin-bottom: 10px;
+}
+
+
+
+
+
+/*Home menu css*/
+
+
+@media screen and (max-width: 850px) {
+    .ulMenu {
+        padding-left: 10px;
+    }
 }

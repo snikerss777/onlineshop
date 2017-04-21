@@ -21,11 +21,12 @@
 
 		@include('menus.userMenu')
 
-		<div class="col-md-9">
+		<div class="col-sm-9">
 			<div class="panel panel-default">
 				<div class="panel-heading">Zakupione przedmioty</div>
 					
 				<div class="panel-body" >
+					
 					
 					@include('advertisement.list', ['right_bottom_paragraph' => 'Oczekiwanie na akceptacje przez sprzedawcę', 'link' => '/transaction/',
 						'sold' => false])
@@ -33,10 +34,6 @@
 				</div>
 			</div>
 		</div>
-
-		
-
-
 
 
 	</div>

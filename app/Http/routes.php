@@ -53,11 +53,18 @@ Route::get('/removeUpload/{id}', ['as' => 'image.removeUpload' , 'uses' => 'Imag
 
 
 //Transaction routes
-Route::get('/transaction/create/{id}', 'TransactionController@create');
-Route::get('/transaction/done', 'TransactionController@doneDeals');
-Route::get('/transaction/sold', 'TransactionController@soldThings');
+// Route::get('/transaction/done', 'TransactionController@doneDeals');
 Route::get('/transaction/{id}', 'TransactionController@show');
-Route::get('/acceptTransaction/{id}', 'TransactionController@acceptTransaction');
+Route::get('/userTransactions/{id}', 'TransactionController@userTransactions');
+Route::get('/admin/transactions', 'TransactionController@adminTransactions');
+Route::get('/archive/transactions', 'TransactionController@archiveTransactions');
+Route::get('/userProducts/{id}', 'TransactionController@userProducts');
+Route::get('/transaction/remove/{id}', 'TransactionController@remove');
+Route::get('/transaction/changeStatus/{id}/{statusId}', 'TransactionController@changeStatus');
+
+
+
+// Route::get('/acceptTransaction/{id}', 'TransactionController@acceptTransaction');
 Route::post('/transaction', ['as' => 'transaction.store' , 'uses' => 'TransactionController@store']);
 // Route::get('/goToAdvertisement', ['as' => 'transaction.goToAdvertisement' , 'uses' => 'AdvertisementController@index']);
 
@@ -76,4 +83,4 @@ Route::get('/observedAdvertisement/delete/{id}', 'ObservedAdvertisementControlle
 Route::get('/bracket/{id}', 'BracketController@show');
 Route::get('/bracket', 'BracketController@index');
 Route::get('/bracket/remove/{id}', 'BracketController@removeProduct');
-Route::get('/bracket/convertCost', 'BracketController@convertCost');
+Route::post('/bracket/postBracket', 'BracketController@postBracket');

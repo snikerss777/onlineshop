@@ -1,84 +1,92 @@
 @extends('app')
 
 
+@section('styles')
+	<link rel="stylesheet" type="text/css" href="/css/bracketShow.css">
+@endsection
 
 @section('breadCrumbs')
 	
 	<ol class="breadcrumb">
-  		<li ><a href="/">Home</a></li>
-  		<li ><a href="/advertisement/{{$advertisement->advertisement_id}}">{{$advertisement->name}}</a></li>
-  		@if(Auth::id() == $buyer->id)
-			<li class="active">Dane zakupu</li>
-		@else
-			<li class="active">Dane sprzedaży</li> 
-		@endif 
+  		<li><a  href="/" ng-click="getCategoriesWithAdvertisements(cat.id, 0, 1)"> Home </a> </li>
+  		<li><a href="/userTransactions/{{Auth::id()}}">Moje transakcje </a></li>
+  		<li class="active">Zamówienie numer: {{$transaction->id}}</li>
 	</ol>
 
 @endsection
 
-
-
- 
 @section('content')
-<div class="container" >
+
 	<div class="row" >
 
 		@include('menus.userMenu')
 
 		<div class="col-sm-9">
 			<div class="panel panel-default">
-				<div class="panel-heading">
-					@if(Auth::id() == $buyer->id)
-						Dane zakupu dla ogłoszenia: 
-					@else
-						Dane sprzedaży przedmiotu z ogłoszenia:  
-					@endif 
-					<a href="/advertisement/{{$advertisement->advertisement_id}}">{{$advertisement->name}}</a>
-				</div>
+				<div class="panel-heading">Zamówienie numer: {{$transaction->id}}</div>
 				
 				<div class="panel-body" >
+					
+					
 					<div class="row">
-						<div class="col-sm-6">
-							<img src="/images/{{$advertisement->src}}" class="img-responsive">
+						<div class="col-sm-12">
+							<h3>Dane zamówienia</h3>
 						</div>
+					</div>
+					<div class="row">
+
 						<div class="col-sm-6">
-							<h4 class="textAlignOnRight marginBottom5">Cena: {{$advertisement->price}} zł</h4>
-							<h4 class="textAlignOnRight marginBottom5">Liczba egzemplarzy: {{$advertisement->number_of_copies}}</h4>
-							@if(Auth::id() == $buyer->id)
-								<h4 class="textAlignOnRight marginBottom5">Sprzedawca: {{$owner->firstname}} {{$owner->lastname}}</h4>
-							@else
-								<h4 class="textAlignOnRight marginBottom5">Kupujący: {{$buyer->firstname}} {{$buyer->lastname}}</h4>
-							@endif
-							<h4 class="textAlignOnRight marginBottom5">Data transakcji: {{$advertisement->created_at}}</h4>
-							<h4 class="textAlignOnRight marginBottom5">Sposób dostawy: {{$deliveryMethod->name}}</h4>
-							
-							 
-							@if(Auth::id() == $buyer->id)
-								<h4 class="textAlignOnRight marginBottom5">Status transakcji: @if($advertisement->is_accepted == 1) Zaakceptowana @else Do akceptacji @endif </h4>
-							@else
-								@if($advertisement->is_accepted == 1)
-									<h4 class="textAlignOnRight marginBottom5">Status transakcji: Zaakceptowana</h4>
-								@else
-									<button class="btn btn-primary onRight marginBottom5" onclick="acceptTransaction({{$advertisement->id}})" >Akceptuj transakcję</button>
-								@endif
-							@endif 
-							
-							<a href="{{ URL::route('goToAdvertisement/', ['id' => $advertisement->advertisement_id]) }}" class="btn btn-primary  onRight marginRight10">Przejdź do ogłoszenia</a>
+							<ul class="transactionShowUl">
+								<li class="list-item">Status zamówienia: <b> {{$transaction->status}} </b></li>
+								<li class="list-item">Sposób dostawy: {{$transaction->created_at}}</li>
+							</ul>
+						</div>
+
+						<div class="col-sm-6">
+							<ul class="transactionShowUl">
+								<li class="list-item">Sposób dostawy: {{$transaction->delivery_method}}</li>
+								<li class="list-item">Koszt dostawy: {{$transaction->delivery_cost}}</li>
+								@if($transaction->status_id == 1)<li style="margin-top:20px;" class="list-item"><a href="/transaction/remove/{{$transaction->id}}" class="buttonMakeAnOrder" >Anuluj zamówienie</a></li>@endif
+							</ul>
+						</div>
+					</div>
+
+
+					<div class="row tableRow">
+						
+						<div class="col-sm-12">
+							<h3>Zamówione produkty</h3>
+							<table class="table table-condensed">
+								<thead>
+									<tr>
+										<th class="imageTd"></th>
+										<th>Produkt</th>
+										<th>Ilość</th>	
+										<th>Cena</th>
+										<th>Wartość</th>
+									</tr>
+								</thead>
+
+								<tbody>
+								
+									@foreach ($products as $product)
+										<tr>
+											<td class="imageTd"><image @if(is_null($product->icon_src)) src="/images/defaultIcon.png"  @else src="/images/{{$product->icon_src}}" @endif></td>
+											<td><a href="/advertisement/{{$product->advertisement_id}}">{{$product->name}}</a></td>
+											<td>{{$product->number_of_copies}}</td>
+											<td>{{ number_format($product->price, 2, ',', ' ') }} zł</td>
+											<td>{{ number_format($product->number_of_copies * $product->price, 2, ',', ' ') }} zł</td>
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
 						</div>
 					</div>
 
 				</div>
 			</div>
 		</div>
-
 	</div>
 
-</div>
-
-
-
 @endsection
 
-@section('scripts')
-	<script type="text/javascript" src="/js/transactionShow.js"></script>
-@endsection

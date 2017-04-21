@@ -54,12 +54,7 @@
 							</div> 
 						</div>
 
-						<div class="form-group">
-							{!! Form::label('account_number', 'Numer konta bankowego:', ['class' => 'col-sm-4 control-label']) !!}
-							<div class="col-md-8">
-								{!! Form::input('number', 'account_number', Auth::User()->bank_account_number, ['class' => 'form-control']) !!}
-							</div> 
-						</div>
+					
 
 						<div class="form-group">
 							{!! Form::label('used', 'Czy używany:', ['class' => 'col-sm-4 control-label']) !!}
