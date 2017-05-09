@@ -12,7 +12,13 @@
 	
 	<ol class="breadcrumb">
   		<li ><a href="/">Home</a></li>
-  		<li class="active">Moje dane</li>
+  		<li class="active"> 
+  			@if(Auth::id() == $user->id)
+						Moje dane
+					@else
+						{{$user->firstname}} {{$user->lastname}}
+					@endif
+		</li>
 	</ol>
 
 @endsection
@@ -36,7 +42,13 @@
 
 		<div class="col-sm-9">
 			<div class="panel panel-default">
-				<div class="panel-heading">Moje dane</div>
+				<div class="panel-heading"> 
+					@if(Auth::id() == $user->id)
+						Moje dane
+					@else
+						Dane klienta: {{$user->firstname}} {{$user->lastname}}
+					@endif
+				</div>
 				
 				<div class="panel-body">
 					<div class="container">
@@ -50,7 +62,9 @@
 									<li class="list-group-item">Data urodzenia: {{ $user->birth_date }}</li>
 									<li class="list-group-item">Numer dowodu osobistego: {{ $user->number_of_id_card }}</li>
 									<li class="list-group-item">Numer telefonu: {{ $user->telephone_number }}</li>
-									<li class="list-group-item"><button onclick="window.location='/edit_account/{{$user->id}}'" type="button" class="btn btn-primary">Edytuj dane</button>
+									@if(Auth::id() == $user->id)
+										<li class="list-group-item"><button onclick="window.location='/edit_account/{{$user->id}}'" type="button" class="btn btn-primary">Edytuj dane</button>
+									@endif
 									</li>
 								</ul>
 

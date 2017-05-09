@@ -3,7 +3,7 @@
 				<div class="panel-heading marginBottom5">Menu główne</div>
 
 				<ul class=" nav nav-pills nav-stacked" >
-					<li @if(Request::is('my_account/*'))  class="active" @endif><a href="/my_account/{{Auth::id() }}"><i class="fa fa-home fa-fw"></i>Moje dane</a></li>
+					<li @if(Request::is('my_account/*') && $user->id == Auth::id())  class="active" @endif><a href="/my_account/{{Auth::id() }}"><i class="fa fa-home fa-fw"></i>Moje dane</a></li>
 	               	<!-- <li @if(Request::is('getMyAdvertisements'))  class="active" @endif><a href="/getMyAdvertisements"><i class="fa fa-file-o fa-fw"></i>Ogłoszenia</a></li> -->
 
 	                <li @if(Request::is('advertisement/create'))  class="active" @endif><a href="/advertisement/create"><i class="fa fa-list-alt fa-fw"></i>Dodaj ogłoszenie</a></li>

@@ -3,6 +3,8 @@
 
 @section('styles')
 	<link rel="stylesheet" type="text/css" href="/css/bracketShow.css">
+		<link href="{{ asset('/css/transactionShow.css') }}" rel="stylesheet">
+
 @endsection
 
 @section('breadCrumbs')
@@ -12,7 +14,7 @@
   		@if(Auth::user()->kind_of_user_id == 6)
   		<li><a href="/userTransactions/{{Auth::id()}}">Moje transakcje </a></li>
   		@else
-  		<li><a href="/userTransactions/{{Auth::id()}}">Transakcje klientów </a></li>
+  		<li><a href="/admin/transactions">Transakcje klientów </a></li>
   		@endif
   		<li class="active">Zamówienie numer: {{$transaction->id}}</li>
 	</ol>
@@ -50,6 +52,9 @@
 							<ul class="transactionShowUl">
 								<li class="list-item">Status zamówienia: <b> {{$transaction->status}} </b></li>
 								<li class="list-item">Sposób dostawy: {{$transaction->created_at}}</li>
+								@if(Auth::user()->kind_of_user_id != 6)
+									<li class="list-item">Klient: <a href="/my_account/{{ $transaction->buyer_id }}">{{$transaction->firstname}} {{$transaction->lastname}} </a></li>
+								@endif
 							</ul>
 						</div>
 

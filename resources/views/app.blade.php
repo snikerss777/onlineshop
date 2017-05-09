@@ -38,10 +38,9 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="CategoriesController">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}">Strona główna</a></li>
-					<li><a href="{{ url('/bracket') }}">Koszyk</a></li>
-					@if(Auth::guest())
-					<li><a href="{{ url('/') }}">Kontakt</a></li>
-					@else
+					@if(Auth::guest() || Auth::user()->kind_of_user_id == 6)
+						<li><a href="{{ url('/bracket') }}">Koszyk</a></li>
+					@elseif(Auth::user()->kind_of_user_id == 5 || Auth::user()->kind_of_user_id == 4)
 						<li><a href="{{ url('/advertisement/create') }}">Dodaj ogłoszenie</a></li>
 					@endif
 				</ul>

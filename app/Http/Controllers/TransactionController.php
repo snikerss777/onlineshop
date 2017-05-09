@@ -176,8 +176,10 @@ class TransactionController extends Controller {
 			->join('advertisements', 'advertisements.id', '=' ,'transaction_products.product_id')
 			->join('transaction_statuses', 'transaction_statuses.id', '=', 'transactions.transaction_status_id')
 			->join('delivery_methods', 'delivery_methods.id', '=', 'transactions.delivery_method_id')
+			->join('users', 'buyer_id', '=', 'users.id')
 			->select('transactions.id as id', 'transactions.created_at', 'transaction_statuses.name as status', 
-				'delivery_methods.name as delivery_method', 'delivery_methods.cost as delivery_cost', 'transaction_statuses.id as status_id')
+				'delivery_methods.name as delivery_method', 'delivery_methods.cost as delivery_cost', 'transaction_statuses.id as status_id',
+				'users.firstname', 'users.lastname', 'buyer_id')
 			->where('transactions.id', $id)->first();
 
 
