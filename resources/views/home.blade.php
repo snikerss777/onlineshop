@@ -21,14 +21,18 @@
 @endsection
 
 
-@section('content')
+@section('content') 
 
 
 
 
 <div  >
-	<div class="row" ng-init="getCategoriesWithResetStorage()">
 
+	@if ( session()->has('positive_message') )
+	<div class="row" ng-init="getCategoriesWithAdvertisements(cat.id, 0, 1)">
+	@else
+	<div class="row" ng-init="getCategoriesWithResetStorage()">
+	@endif
 		@include('menus.homeMenu', ['isHome' => 1])
 
 		<div class="col-sm-9">
@@ -56,7 +60,7 @@
 						</div>
 					</div> -->
 					 	<div ng-repeat="advertisement in advertisements" ng-if="$index % 3 == 0" class="row">
-					 		<div class="col-sm-4 advertisementItem" ng-if="advertisements.length > $index">
+					 		<div class="col-sm-4 advertisementItem" ng-if="advertisements.length > $index && $index <9">
 					 			<div class="itemContainer">
 					 				<div ng-if="advertisements[$index].src == null" class="myImageContainer" >
 					 					<a href="/advertisement/<%advertisements[$index].id%>"><img src="/images/default.png" class="img-responsive"></a>
@@ -74,7 +78,7 @@
 
 					 			</div>
 					 		</div>
-					 		<div class="col-sm-4 advertisementItem" ng-if="$index +1 < advertisements.length">
+					 		<div class="col-sm-4 advertisementItem" ng-if="$index +1 < advertisements.length && $index+1 <9">
 					 			<div class="itemContainer">
 					 				<div ng-if="advertisements[$index+1].src == null" class="myImageContainer" >
 					 					<a href="/advertisement/<%advertisements[$index+1].id%>"><img src="/images/default.png" class="img-responsive"></a>
@@ -93,7 +97,7 @@
 					 			</div>
 					 		</div>
 
-					 		<div class="col-sm-4 advertisementItem" ng-if="$index +2 < advertisements.length">
+					 		<div class="col-sm-4 advertisementItem" ng-if="$index +2 < advertisements.length && $index +2 <9">
 					 			<div class="itemContainer">
 					 				<div ng-if="advertisements[$index+2].src == null" class="myImageContainer" >
 					 					 <a href="/advertisement/<%advertisements[$index+2].id%>"><img src="/images/default.png" class="img-responsive"></a>
@@ -115,6 +119,31 @@
 
 						</div>
 
+						<div class="row" ng-if="allAdvertisements.length >=9">
+							
+							<div class="col-sm-12">
+								<nav aria-label="Page navigation">
+								  <ul class="pagination">
+								    <li>
+								      <a ng-click="getPreviousPage()"  href="" aria-label="Previous">
+								        <span aria-hidden="true">&laquo;</span>
+								      </a>
+								    </li>
+
+								    <li ng-repeat="advertisement in allAdvertisements" ng-if="$index %9 ==0" ng-class="{active: numberOfPagination==getFloor($index)}">
+								    	<a ng-click="getAdvertisementsToShow(getFloor($index))"><% getFloor($index) %> </a>
+								    </li>
+								    
+								    <li>
+								      <a ng-click="getNextPage()" href="" aria-label="Next">
+								        <span aria-hidden="true">&raquo;</span>
+								      </a>
+								    </li>
+								  </ul>
+								</nav>
+							</div>
+							
+						</div>
 				</div>
 			</div>
 		</div>

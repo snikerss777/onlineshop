@@ -6,6 +6,10 @@ class Category extends Model {
 
 	protected $table = "categories";
 
+	public $rules = [
+			 'newCategory' => 'required|max:255'
+	];
+
 	public function child_categories()
 	{
 	    return $this->hasMany('App\Category', 'above_category');

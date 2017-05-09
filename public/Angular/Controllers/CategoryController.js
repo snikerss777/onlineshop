@@ -30,13 +30,29 @@ angular.module('app').controller('CategoriesController', ['$scope', '$http', '$l
 			$scope.$storage.categoryIdsStorageHome = $scope.categoryIds; 
 		};
 
-		$scope.getAdvertisements = function(categoryId, isHome){
+		$scope.getAdvertisements = function(categoryId, isHome, numberOfPagination){
 			$http.get('/getAdvertisements/'+categoryId)
 				.then(function(response) {
-					$scope.advertisements = response.data;
+					$scope.allAdvertisements = response.data;
+					$scope.getAdvertisementsToShow(numberOfPagination); //SEt advertisements
 					$scope.$storage.advertisementsStorageHome = $scope.advertisements;
+					$scope.$storage.allAdvertisementsStorageHome = $scope.allAdvertisements;
 					if(isHome == 0)
 						window.location.replace('/');
+				});
+		}
+
+		$scope.getAdvertisementsBySearched = function(){
+			$scope.getCategories(0,0,0);
+			phrase = $('#phrase').val();
+			$http.post('/getSearchedAdvertisements', {phrase: phrase})
+				.then(function(response){
+					$scope.allAdvertisements = response.data;
+					$scope.getAdvertisementsToShow(1); //SEt advertisements
+					$scope.$storage.advertisementsStorageHome = $scope.advertisements;
+					$scope.$storage.allAdvertisementsStorageHome = $scope.allAdvertisements;
+					window.location.replace('/');
+					
 				});
 		}
 		
@@ -52,9 +68,11 @@ angular.module('app').controller('CategoriesController', ['$scope', '$http', '$l
 					   		$scope.categoryIds = [];
 					   	}
 					    else if(levelId <= $scope.levelId){
+					    	console.log('levelidScope = '+$scope.levelId+ " // levelId "+levelId);
 					    	$scope.levelId = levelId;
 					    	$scope.categories.splice(levelId+1, ($scope.categories.length - levelId - 1));
 					    	$scope.categoryIds.splice(levelId+1, ($scope.categoryIds.length - levelId - 1));
+					    	console.log('levelId '+$scope.levelId);
 					    }
 
 					    if(categoryId == 0 || angular.isUndefined(categoryId)){
@@ -75,7 +93,21 @@ angular.module('app').controller('CategoriesController', ['$scope', '$http', '$l
 					 //   	console.log("category id " +categoryId + " " + $scope.categoryIds.length);
 						// console.log($scope.categories);
 					 //   	console.log($scope.categoryIds);
-					 console.log('AAAAAAAAA');
+					 
+						if($scope.categories.length > 1){
+							newLevelId = levelId -1;
+						} else {
+							newLevelId = levelId ;
+						}
+						
+						for (var i = 0; i < $scope.categories[newLevelId].length; i++) {
+							console.log(' $scope.categories[newLevelId][i].id = ' + $scope.categories[newLevelId][i].id);
+							if(categoryId == $scope.categories[newLevelId][i].id){
+								$('#categorySpan').text($scope.categories[newLevelId][i].name);
+								
+							}
+						 		
+						}
 
 					});
 				}
@@ -137,7 +169,7 @@ angular.module('app').controller('CategoriesController', ['$scope', '$http', '$l
 		$scope.getCategoriesWithResetStorage = function(){
 			if(angular.isUndefined($scope.$storage.levelIdStorageHome)){
 				$scope.getCategories(0,0);
-				$scope.getAdvertisements(0, 1);
+				$scope.getAdvertisements(0, 1,1);
 			}
 			else{
 				$scope.mainCategories = $scope.$storage.mainCategoriesStorageHome;
@@ -145,6 +177,8 @@ angular.module('app').controller('CategoriesController', ['$scope', '$http', '$l
 				$scope.levelId =  $scope.$storage.levelIdStorageHome;
 				$scope.categoryIds = $scope.$storage.categoryIdsStorageHome;
 				$scope.advertisements = $scope.$storage.advertisementsStorageHome;
+				$scope.allAdvertisements = $scope.$storage.allAdvertisementsStorageHome;
+				$scope.numberOfPagination = $scope.$storage.numberOfPaginationStorageHome;
 				//console.log("$scope.$storage.mainCategoriesStorageHome = " + $scope.$storage.mainCategoriesStorageHome;);
 				
 
@@ -159,7 +193,30 @@ angular.module('app').controller('CategoriesController', ['$scope', '$http', '$l
 		$scope.getCategoriesWithAdvertisements = function(categoryId, levelId , isHome){
 			console.log(isHome + " = isHome");
 			$scope.getCategories(categoryId, levelId, 1);
-			$scope.getAdvertisements(categoryId, isHome);
+			$scope.getAdvertisements(categoryId, isHome,1);
+		}
+
+
+		$scope.getFloor = function(index){
+			return Math.floor(index /9) +1;
+		}
+
+		$scope.getPreviousPage = function(){
+			if($scope.numberOfPagination > 1){
+				$scope.getAdvertisementsToShow($scope.numberOfPagination -1);
+			}
+		}
+
+		$scope.getNextPage = function(){
+			if($scope.numberOfPagination < $scope.getFloor($scope.allAdvertisements.length - 1)){
+				$scope.getAdvertisementsToShow($scope.numberOfPagination +1);
+			}
+		}
+
+		 $scope.getAdvertisementsToShow = function(numberOfPagination){
+			$scope.advertisements =  $scope.allAdvertisements.slice((numberOfPagination -1) * 9, (numberOfPagination -1) * 9 +9);
+			$scope.numberOfPagination = numberOfPagination;
+			$scope.$storage.numberOfPaginationStorageHome = numberOfPagination;
 		}
 
 	}]);

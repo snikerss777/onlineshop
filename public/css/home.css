@@ -56,6 +56,10 @@
 	margin-right: 10px 
 }
 
+.buttonCol{
+	text-align: right;
+}
+
 
 
 .list-group.panel > .list-group-item {
@@ -155,6 +159,32 @@
 
 
 
+/*Search button styles*/
+.searchButton{
+	background-color:red;
+	border:none;
+	border-radius: 0px;
+	font-weight: bold;
+	border: 1px solid red;
+	margin-bottom: 10px;
+	text-decoration: none!important;
+}
+
+.searchButton span {
+	color: white;
+
+}
+
+.searchButton:hover{
+	background-color: white;
+}
+
+.searchButton:hover span{
+	color: red!important;
+}
+
+
+
 
 /*Home menu css*/
 
@@ -163,4 +193,26 @@
     .ulMenu {
         padding-left: 10px;
     }
+}
+
+@media screen and (min-width: 651px) and (max-width: 768px)  {
+   	.myImageContainer img{
+   		width: 100%;
+   	}
+
+   	.myImageContainer{
+		width: 100%;
+		padding-top: 40%;
+	}
+}
+
+@media screen and (max-width: 651px)   {
+   	.myImageContainer img{
+   		width: 100%;
+   	}
+
+   	.myImageContainer{
+		width: 100%;
+		padding-top: 70%;
+	}
 }

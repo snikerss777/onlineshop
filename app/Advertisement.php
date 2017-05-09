@@ -17,8 +17,8 @@ class Advertisement extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'description', 'price', 'number_of_copies', 'end_date',
-		'place', 'create_year', 'used', 'owner_id', 'category_id', 'advertisement_status_id', 'created_at', 'updated_at'] ;
+	protected $fillable = ['name', 'description', 'price', 'number_of_copies',
+		'owner_id', 'category_id', 'advertisement_status_id', 'created_at', 'updated_at'] ;
 
 	//TODO
 	public $rules = [
@@ -26,10 +26,7 @@ class Advertisement extends Model {
 			'description' => 'required',
 			'price' => 'required',
 			'number_of_copies' => 'required',
-			'create_year' => 'required|max:2017',
-			'advertisement_duration' => 'required',
-			'place' => 'required',
-			'used' => 'required',
+			
 			'category_id' => 'required',
 			'deliveryMethods' => 'required|min:1',
 		];

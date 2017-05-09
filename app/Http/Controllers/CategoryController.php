@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Category;
+use App\Advertisement;
 
 class CategoryController extends Controller {
 
@@ -65,7 +66,7 @@ class CategoryController extends Controller {
 	 */
 	public function create()
 	{
-		//
+		return view('categories.create');
 	}
 
 	/**
@@ -73,9 +74,20 @@ class CategoryController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request, Category $category)
 	{
-		//
+		$this->validate($request, $category->rules);
+		$inputs = $request->all();
+		$newCategory = new Category;
+		$newCategory->name = $inputs['newCategory'];
+		if(!empty($inputs['above_category'])){
+			$newCategory->above_category = $inputs['above_category'];
+		} else {
+			$newCategory->above_category = null;
+		}
+		$newCategory->save();
+
+		return redirect('/category/create')->with('positive_message', 'Nowa kategoria została dodana');
 	}
 
 	/**
@@ -95,9 +107,9 @@ class CategoryController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit()
 	{
-		//
+		return view('categories.edit');
 	}
 
 	/**
@@ -106,9 +118,16 @@ class CategoryController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request)
 	{
-		//
+		$inputs = $request->all();
+
+		$category = Category::findOrFail($inputs['oldCategoryId']);
+		$oldCategoryName = $category->name;
+		$category->name = $inputs['newCategoryName'];
+		$category->save();
+
+		return redirect('/')->with('positive_message', 'Nazwa kategorii: '.$oldCategoryName.' została zmieniona na: '.$category->name.'.');
 	}
 
 	/**
@@ -119,7 +138,24 @@ class CategoryController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$categories = Category::where('above_category', $id)->get();
+		$advertisements = Advertisement::where('category_id', $id)->get();
+		$category = Category::findOrFail($id);
+
+		if(count($categories) > 0){
+			return redirect('/category/remove')->withErrors(['Nie możesz usunąć kategorii: '.$category->name.' ponieważ posiada ona podkategorię. Aby ją usunąć, najpierw musisz usunąć jej wszystkie podkategorię']);
+		} elseif (count($advertisements)) {
+			return redirect('/category/remove')->withErrors(['Nie możesz usunąć kategorii: '.$category->name.' ponieważ posiada ona podkategorię. Aby ją usunąć, najpierw musisz usunąć wszystkie ogłoszenia dla tej kategorii']);
+		}
+		
+		$category->delete();
+		return redirect('/category/remove')->with('positive_message', 'Kategoria została usunięta');
 	}
+
+	public function remove()
+	{
+		return view('categories.remove');
+	}
+
 
 }

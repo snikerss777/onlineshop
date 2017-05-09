@@ -11,6 +11,7 @@ use Session;
 use Carbon;
 use App\Transaction;
 use App\TransactionProduct;
+use Auth;
 
 class BracketController extends Controller {
 
@@ -128,6 +129,10 @@ class BracketController extends Controller {
 
 	public function storeTransaction($request)
 	{
+		if(!Auth::check()){
+			return redirect('/auth/login')->with('message', 'Aby dokonać transakcji, musisz się zalogować.');
+		}
+
 		$inputs = $request->all();
 		$inputs['transaction_status_id'] = 1;
 		$inputs['created_at'] =  Carbon\Carbon::now();
@@ -167,7 +172,7 @@ class BracketController extends Controller {
 			return redirect('/')->with('positive_message', 'Transakcja została przyjęta. Zgłoś się do naszego punktu by odebrać zamówienie.'); 
 		}
 		else {
-		return redirect('/')->with('positive_message', 'Transakcja została przyjęta.'); 
+			return redirect('/')->with('positive_message', 'Transakcja została przyjęta.'); 
 		}
 	}
 

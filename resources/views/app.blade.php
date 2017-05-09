@@ -24,7 +24,7 @@
 </head>
 <body ng-app="app">
 	<nav class="navbar navbar-default" >
-		<div class="container-fluid">
+		<div class="container-fluid" id="horizontalMenu">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 					<span class="sr-only">Toggle Navigation</span>
@@ -35,23 +35,22 @@
 				<a class="navbar-brand" href="#">Online shop <% 2+2 %></a>
 			</div>
 
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="CategoriesController">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}">Strona główna</a></li>
+					<li><a href="{{ url('/bracket') }}">Koszyk</a></li>
 					@if(Auth::guest())
-					<li><a href="{{ url('/') }}">O nas</a></li>
 					<li><a href="{{ url('/') }}">Kontakt</a></li>
 					@else
 						<li><a href="{{ url('/advertisement/create') }}">Dodaj ogłoszenie</a></li>
-						<li><a href="{{ url('/') }}">Obserwowane</a></li>
 					@endif
 				</ul>
 
 				<form class="navbar-form navbar-left" id="centerd-navbar">
 				      <div class="form-group">
-				        <input type="text" class="form-control" placeholder="Search">
+				        <input type="text" class="form-control" placeholder="Szukaj w sklepie" id="phrase">
 				      </div>
-				      <button type="submit" class="btn btn-default">Submit</button>
+				      <button class="btn searchButton" ng-click="getAdvertisementsBySearched()"><span class="glyphicon glyphicon-search"></span></button>
 				</form>
 
 				<ul class="nav navbar-nav navbar-right">

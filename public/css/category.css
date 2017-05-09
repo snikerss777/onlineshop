@@ -1,0 +1,35 @@
+
+
+
+.buttonCategory{
+	margin-top: 15px;
+	background-color:red;
+	border:none;
+	padding-right: 30px;
+	padding-left: 30px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	border-radius: 0px;
+	font-weight: bold;
+	border: 1px solid red;
+	margin-bottom: 10px;
+	text-decoration: none!important;
+	color:white;
+}
+
+.buttonCategory:hover{
+	background-color: white;
+	color: #383838;
+	border: 1px solid black;
+}
+
+.buttonCategory:focus {
+	background-color: white;
+	color: #383838;
+	border: 1px solid black;
+}
+
+
+.buttonRow{
+	margin-top: 30px;
+}

@@ -27,6 +27,18 @@ Route::get('/getCategories/{id}', 'CategoryController@index');
 Route::get('/getEditCategories/{id}', 'CategoryController@getEditCategories');
 Route::get('/getAdvertisements/{id}', 'AdvertisementController@index');
 Route::get('/getAdvertisementsByCategory/{id}', 'AdvertisementController@getAdvertisementsByCategory');
+Route::post('/getSearchedAdvertisements' , 'AdvertisementController@getSearchedAdvertisements');
+
+
+//Categories routes
+Route::get('/category/create', 'CategoryController@create');
+Route::get('/category/edit', 'CategoryController@edit');
+Route::get('/category/remove', 'CategoryController@remove');
+Route::patch('/category/{id}', 'CategoryController@update');
+Route::post('/category', 'CategoryController@store');
+Route::get('/category/destroy/{id}', 'CategoryController@destroy');
+
+
 
 
 //User routes

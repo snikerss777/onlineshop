@@ -9,7 +9,11 @@
 	
 	<ol class="breadcrumb">
   		<li><a  href="/" ng-click="getCategoriesWithAdvertisements(cat.id, 0, 1)"> Home </a> </li>
+  		@if(Auth::user()->kind_of_user_id == 6)
   		<li><a href="/userTransactions/{{Auth::id()}}">Moje transakcje </a></li>
+  		@else
+  		<li><a href="/userTransactions/{{Auth::id()}}">Transakcje klientów </a></li>
+  		@endif
   		<li class="active">Zamówienie numer: {{$transaction->id}}</li>
 	</ol>
 
@@ -18,8 +22,15 @@
 @section('content')
 
 	<div class="row" >
+		@if(Auth::user()->kind_of_user_id == 6)
 
-		@include('menus.userMenu')
+			@include('menus.userMenu')
+
+		@else 
+
+			@include('menus.adminMenu')
+
+		@endif
 
 		<div class="col-sm-9">
 			<div class="panel panel-default">
@@ -45,8 +56,23 @@
 						<div class="col-sm-6">
 							<ul class="transactionShowUl">
 								<li class="list-item">Sposób dostawy: {{$transaction->delivery_method}}</li>
-								<li class="list-item">Koszt dostawy: {{$transaction->delivery_cost}}</li>
-								@if($transaction->status_id == 1)<li style="margin-top:20px;" class="list-item"><a href="/transaction/remove/{{$transaction->id}}" class="buttonMakeAnOrder" >Anuluj zamówienie</a></li>@endif
+								<li class="list-item">Koszt dostawy:  {{ number_format($transaction->delivery_cost, 2, ',', ' ') }} zł</li>
+								@if($transaction->status_id == 1 && Auth::user()->kind_of_user_id == 6)
+									<li style="margin-top:20px;" class="list-item"><a href="/transaction/remove/{{$transaction->id}}" class="buttonMakeAnOrder" >Anuluj zamówienie</a></li>
+								@elseif($transaction->status_id < 3 && Auth::user()->kind_of_user_id != 6) 
+									<li class="list-item">
+										<button class="btn buttonMakeAnOrder dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+										    Zmień status
+										    <span class="caret"></span>
+										</button>
+										 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+										    <li><a href="/transaction/changeStatus/{{$transaction->id}}/1">Przyjęty</a></li>
+										    <li><a href="/transaction/changeStatus/{{$transaction->id}}/2">W trakcie realizacji</a></li>
+										    <li><a href="/transaction/changeStatus/{{$transaction->id}}/3">Zrealizowane</a></li>
+										    <li><a href="/transaction/changeStatus/{{$transaction->id}}/4">Odrzucone</a></li>
+										 </ul>
+									</li>
+								@endif
 							</ul>
 						</div>
 					</div>

@@ -70,6 +70,7 @@ trait AuthenticatesAndRegistersUsers {
 	 */
 	public function postLogin(Request $request)
 	{
+
 		$this->validate($request, [
 			'email' => 'required|email', 'password' => 'required',
 		]);
@@ -78,6 +79,9 @@ trait AuthenticatesAndRegistersUsers {
 
 		if ($this->auth->attempt($credentials, $request->has('remember')))
 		{
+			if($request->has('bracket')){
+				return redirect('/bracket');
+			}
 			return redirect()->intended($this->redirectPath());
 		}
 

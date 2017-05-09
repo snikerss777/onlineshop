@@ -37,6 +37,7 @@ class AdvertisementController extends Controller {
 		if($id == 0){
 			$advertisements = Advertisement::leftJoin('photos', 'advertisements.photo_id', '=', 'photos.id')
 				->where('number_of_copies', '>', 0)
+				->where('advertisement_status_id', 1)
 				->select('advertisements.id as id', 'name', 'category_id' , 'owner_id', 'src', 'photo_id', 'price', 'place')
 				->get();
 		} 
@@ -47,10 +48,22 @@ class AdvertisementController extends Controller {
 			$advertisements = Advertisement::leftJoin('photos', 'advertisements.photo_id', '=', 'photos.id')
 				->whereIn('category_id', $categories)
 				->where('number_of_copies', '>', 0)
+				->where('advertisement_status_id', 1)
 				->select('advertisements.id as id', 'name', 'category_id' , 'owner_id', 'src', 'photo_id', 'price', 'place')
 				->get();
 		}
 		return $advertisements;
+		return new Response($advertisements);
+	}
+
+	public function getSearchedAdvertisements(Request $request){
+		$advertisements = Advertisement::leftJoin('photos', 'advertisements.photo_id', '=', 'photos.id')
+				->where('number_of_copies', '>', 0)
+				->where('advertisement_status_id', 1)
+				->where('advertisements.name', 'LIKE', '%'.$request->input('phrase').'%')
+				->select('advertisements.id as id', 'name', 'category_id' , 'owner_id', 'src', 'photo_id', 'price', 'place')
+				->get();
+
 		return new Response($advertisements);
 	}
 
@@ -112,7 +125,7 @@ class AdvertisementController extends Controller {
 			return redirect()->back()->with($inputs)->withErrors(['Nie możesz wybrać kategorii, która posiada podkategorię.']);
 		}		
 
-		$inputs['advertisement_status_id'] = AdvertisementStatus::where('name', 'Do akceptacji')->first()->id;
+		$inputs['advertisement_status_id'] = 1;
 		$inputs['owner_id'] = Auth::id();
 		$inputs['category_id'] = $catId;
 		$inputs['created_at'] = Carbon\Carbon::now();
@@ -125,7 +138,7 @@ class AdvertisementController extends Controller {
 			AdvertisementDelivery::create(['advertisement_id' => $advertisement->id, 'delivery_method_id' => $deliveryMethod]);
 		}
 		
-		return redirect("/upload/".$advertisement->id)->with('positive_message', 'Twoje ogłoszenie zostało dodane. Teraz czeka na akceptacje administratora.');
+		return redirect("/upload/".$advertisement->id)->with('positive_message', 'Zgłoszenie zostało pomyślnie dodane.');
 	}
 
 	/**
@@ -199,7 +212,11 @@ class AdvertisementController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$advertisement = Advertisement::findOrFail($id);
+		$advertisement->advertisement_status_id = 2;
+		$advertisement->save();
+
+		return redirect('/')->with('positive_message', 'Ogłoszenie zostało usunięte.');
 	}
 
 

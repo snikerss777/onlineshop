@@ -117,19 +117,19 @@
 								@else 
 									
 									<div class="row">
-										<div class="col-sm-12">
-											<a style="width:50%" href="{{ URL::route('advertisement/edit/', ['id' => $advertisement->id]) }}" class="btn btn-primary btn-lg  right buttonDown2 ">Edytuj ogłoszenie</a>
+										<div class="col-sm-12 buttonCol">
+											<a style="width:50%; text-align:center;" href="{{ URL::route('advertisement/edit/', ['id' => $advertisement->id]) }}" class="btn btn-primary btn-lg  right buttonDown2 ">Edytuj ogłoszenie</a>
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-sm-12">
-											<a style="width:50%" href="{{ URL::route('upload/', ['id' => $advertisement->id]) }}" class="btn btn-primary btn-lg  right buttonDown2 ">Zarządzaj zdjęciami</a>
+										<div class="col-sm-12 buttonCol">
+											<a style="width:50%; text-align:center;" href="{{ URL::route('upload/', ['id' => $advertisement->id]) }}" class="btn btn-primary btn-lg  right buttonDown2 ">Zarządzaj zdjęciami</a>
 										</div>
 									</div>
 
 									<div class="row">
-										<div class="col-sm-12">
-											<a style="width:50%" href="{{ URL::route('advertisement/destroy/', ['id' => $advertisement->id]) }}" class="btn btn-warning btn-lg  right buttonDown2 ">Usuń ogłoszenie</a>
+										<div class="col-sm-12 buttonCol">
+											<a style="width:50%; text-align:center;" href="{{ URL::route('advertisement/destroy/', ['id' => $advertisement->id]) }}" class="btn btn-warning btn-lg  right buttonDown2 ">Usuń ogłoszenie</a>
 										</div>
 									</div>
 

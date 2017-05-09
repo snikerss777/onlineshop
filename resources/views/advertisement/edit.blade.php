@@ -21,7 +21,7 @@
 
 		@include('menus.adminMenu')
 
-		<div class="col-md-9">
+		<div class="col-sm-9">
 			<div class="panel panel-default" ng-controller="CategoriesController">
 				<div class="panel-heading">Edytuj ogłoszenie: {{$advertisement->name}}</div>
 				

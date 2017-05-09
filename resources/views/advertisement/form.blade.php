@@ -4,14 +4,14 @@
 
 						<div class="form-group">
 							{!! Form::label('name', 'Nazwa:', ['class' => 'col-sm-4 control-label']) !!}
-							<div class="col-md-8">
+							<div class="col-sm-8">
 								{!! Form::text('name', null, ['class' => 'form-control']) !!}
 							</div> 
 						</div>
 
 						<div class="form-group">
 							{!! Form::label('description', 'Opis:', ['class' => 'col-sm-4 control-label']) !!}
-							<div class="col-md-8">
+							<div class="col-sm-8">
 								{!! Form::textarea('description', null, ['class' => 'form-control']) !!}
 							</div> 
 						</div>
@@ -19,7 +19,7 @@
 						<!-- //TODO kolumny -->
 						<div class="form-group">
 							{!! Form::label('price', 'Cena:', ['class' => 'col-sm-4 control-label']) !!}
-							<div class="col-md-8">
+							<div class="col-sm-8">
 								{!! Form::input('number', 'price', null, ['class' => 'form-control']) !!}
 							</div> 
 						</div>
@@ -27,46 +27,15 @@
 
 						<div class="form-group">
 							{!! Form::label('number_of_copies', 'Liczba egzemplarzy:', ['class' => 'col-sm-4 control-label']) !!}
-							<div class="col-md-8">
+							<div class="col-sm-8">
 								{!! Form::input('number','number_of_copies', null, ['class' => 'form-control']) !!}
-							</div> 
-						</div>
-
-						<div class="form-group">
-							{!! Form::label('create_year', 'Rok produkcji:', ['class' => 'col-sm-4 control-label']) !!}
-							<div class="col-md-8">
-								{!! Form::input('number','create_year', null, ['class' => 'form-control']) !!}
-							</div> 
-						</div>
-
-
-						<div class="form-group">
-							{!! Form::label('advertisement_duration', 'Czas trwania ogłoszenia:', ['class' => 'col-sm-4 control-label']) !!}
-							<div class="col-md-8">
-								{!! Form::input('number','advertisement_duration', null, ['class' => 'form-control']) !!}
-							</div> 
-						</div>
-						
-						<div class="form-group">
-							{!! Form::label('place', 'Miejscowość:', ['class' => 'col-sm-4 control-label']) !!}
-							<div class="col-md-8">
-								{!! Form::text('place', null, ['class' => 'form-control']) !!}
-							</div> 
-						</div>
-
-					
-
-						<div class="form-group">
-							{!! Form::label('used', 'Czy używany:', ['class' => 'col-sm-4 control-label']) !!}
-							<div class="col-md-8">
-								{!! Form::select('used', array(1 => 'Tak', 0 => 'Nie'), null, ['class' => 'form-control']) !!}
 							</div> 
 						</div>
 
 
 						<div class="form-group">
 							{!! Form::label('category_id', 'Kategoria:', ['class' => 'col-sm-4 control-label']) !!}
-							<div class="col-md-8">
+							<div class="col-sm-8">
 								<div class="row marginBottom5">
 									<div class="col-sm-4">
 										<select class="form-control" name="category_id" ng-change="getCategories(select_category_model_1, 0, 0)" ng-model="select_category_model_1">

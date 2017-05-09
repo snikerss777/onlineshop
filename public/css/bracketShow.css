@@ -60,7 +60,9 @@ table a:hover{
 }
 
 
-
+td{
+	vertical-align: middle!important;
+}
 
 
 /*transaction styles*/

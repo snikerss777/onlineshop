@@ -1,6 +1,24 @@
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 
 
+#horizontalMenu{
+  background-color: #383838;
+}
+
+#horizontalMenu a{
+  color: white!important;
+}
+
+#horizontalMenu a:hover{
+  color: red!important;
+}
+
+
+nav{
+  text-align: center;
+}
+
+
 .abc{
   background-color: red!important;
   color: white!important;

@@ -50,7 +50,7 @@ class TransactionController extends Controller {
 			->leftjoin('photos', 'photos.id', '=', 'advertisements.photo_id')
 			->where('buyer_id', $id)
 			->where('transaction_status_id', '!=' , 5)
-			//->where('transaction_status_id', 3)
+			->where('transaction_status_id', 3)
 			->select('advertisements.name', 'transaction_products.number_of_copies', 'photos.icon_src', 'transactions.created_at', 'advertisements.price', 'advertisements.id as advertisement_id')
 			->get();
 
@@ -84,6 +84,24 @@ class TransactionController extends Controller {
 
 		return redirect('/admin/transactions')->with('positive_message', 'Status transakcji o numerze: '.$id.' został zmieniony.');
 
+	}
+
+	public function archiveTransactions()
+	{
+		$products = Transaction::join('transaction_products', 'transaction_products.transaction_id', '=', 'transactions.id')
+			->join('advertisements', 'advertisements.id', '=' ,'transaction_products.product_id')
+			->join('transaction_statuses', 'transaction_statuses.id', '=', 'transactions.transaction_status_id')
+			->join('delivery_methods', 'delivery_methods.id', '=', 'transactions.delivery_method_id')
+			->where('transaction_status_id', '!=' , 1)
+			->where('transaction_status_id', '!=' , 2)
+			
+			->groupBy('transactions.id')
+			->select('transactions.created_at', \DB::Raw('sum(transaction_products.number_of_copies) as number_of_products') ,\DB::Raw('sum(transaction_products.number_of_copies * advertisements.price) as total_cost'), 
+				 'transactions.id as id', 'transaction_statuses.name as status', 'delivery_methods.name as delivery_name',
+				'delivery_methods.cost as delivery_cost', 'transactions.transaction_status_id as status_id')
+			->get();
+
+			return view('transaction.archiveTransactions', compact('products'));
 	}
 
 	/**
